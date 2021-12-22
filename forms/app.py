@@ -1,7 +1,7 @@
 from typing import Tuple
 import streamlit as st
 from PIL import Image
-import json, base64, os
+import json, base64, os, re
 
 LOGO_PATH = f"{os.path.dirname(__file__)}/resources/images/logo.png"
 LOCALIZATION_DATA_PATH = f"{os.path.dirname(__file__)}/resources/localization.json"
@@ -23,6 +23,9 @@ def setup_app():
         <style>
         #MainMenu {visibility: hidden;}
         footer {visibility: hidden;}
+        .block-container {
+            padding-top:50px;
+        }
         </style>
         """,
         unsafe_allow_html=True
@@ -34,7 +37,7 @@ def load_logo():
 def generate_header():
     logo = load_logo()
 
-    col1, col2 = st.columns([0.25,1])
+    col1, col2 = st.columns((1,4))
     col1.markdown(
         f"""
         <img src="data:image/png;base64,{logo}">
@@ -62,6 +65,29 @@ def generate_header():
 def load_localization_data():
     with open(LOCALIZATION_DATA_PATH, "r") as file:
         return json.load(file)
+
+def check_errors():
+    fields = st.session_state.form_fields
+    errors = []
+
+    if st.session_state.form_stage == 1:
+        if not (len(fields['email'])>0 and re.search(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', fields['email'])):
+            errors.append("Te rugam sa introduci o adresa de email valida.")
+
+        if not (len(fields['E01'])>0 and fields['E01'].isdigit()):
+            errors.append("Te rugam sa iti introduci varsta.")
+
+        if not (fields['E02'] in ["Masculin", "Feminin", "Altul", "Nu doresc să răspund"]):
+            errors.append("Te rugam sa alegi o varianta pentru genul tau.")
+
+        if fields['E03'] == "Selecteaza o localitate" or fields['E04'] == "Selecteaza un liceu":
+            errors.append("Te rugam sa iti selectezi corect localitatea/liceul.")
+
+    if st.session_state.form_stage == 4:
+        if not (len(fields['E24'])>0):
+            errors.append("Te rugam sa alegi o varianta pentru sursele de stres. (Se poate selecta raspunsul de nu exista/nu vreau sa raspund.)")
+    
+    return errors
 
 def stage_handler():
     form_parent = st.empty()
@@ -114,10 +140,17 @@ def stage_handler():
     if st.session_state.form_stage < 7:
         next_btn = container.button("Urmatorul", key=f"nb{st.session_state.form_stage}")
         if next_btn:
-            form_parent.empty()
-            st.session_state.form_stage += 1
             st.session_state.form_fields = fields
-            stage_handler()
+            errors = check_errors()
+
+            if errors:
+                for error in errors:
+                    container.error(error)
+            else:
+                form_parent.empty()
+                st.session_state.form_stage += 1
+
+                stage_handler()
 
 def main():
     st.set_page_config(page_title="Formular • Registrul Educational Alternativ", page_icon="📕", menu_items = {
