@@ -3,8 +3,8 @@ import streamlit as st
 from PIL import Image
 import json, base64
 
-LOGO_PATH = "resources/images/logo.png"
-LOCALIZATION_DATA_PATH = "resources/localization.json"
+LOGO_PATH = "./resourcesresources/images/logo.png"
+LOCALIZATION_DATA_PATH = "./resources/localization.json"
 
 def setup_app():
     if 'ref' not in st.session_state:
