@@ -3,7 +3,7 @@ import streamlit as st
 from PIL import Image
 import json, base64
 
-LOGO_PATH = "./resourcesresources/images/logo.png"
+LOGO_PATH = "./resources/images/logo.png"
 LOCALIZATION_DATA_PATH = "./resources/localization.json"
 
 def setup_app():
@@ -18,8 +18,21 @@ def setup_app():
     if 'form_fields' not in st.session_state:
         st.session_state.form_fields = {}
 
+    st.markdown(
+        """
+        <style>
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+def load_logo():
+    return base64.b64encode(open(LOGO_PATH, "rb").read()).decode()
+
 def generate_header():
-    logo = base64.b64encode(open(LOGO_PATH, "rb").read()).decode()
+    logo = load_logo()
 
     col1, col2 = st.columns([0.25,1])
     col1.markdown(
@@ -107,6 +120,11 @@ def stage_handler():
             stage_handler()
 
 def main():
+    st.set_page_config(page_title="Formular • Registrul Educational Alternativ", page_icon="📕", menu_items = {
+        'Get Help': None,
+        'Report a bug': None,
+        'About': 'Registrul Educational Alternativ'
+    })
     with st.spinner("Formularul se incarca. Te rugam sa astepti."):
         setup_app()
         generate_header()
