@@ -1,10 +1,10 @@
 from typing import Tuple
 import streamlit as st
 from PIL import Image
-import json, base64
+import json, base64, os
 
-LOGO_PATH = "./resources/images/logo.png"
-LOCALIZATION_DATA_PATH = "./resources/localization.json"
+LOGO_PATH = f"{os.path.dirname(__file__)}/resources/images/logo.png"
+LOCALIZATION_DATA_PATH = f"{os.path.dirname(__file__)}/resources/localization.json"
 
 def setup_app():
     if 'ref' not in st.session_state:
