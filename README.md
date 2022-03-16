@@ -1,2 +1,0 @@
-# Registrul Educațional Alternativ
-
