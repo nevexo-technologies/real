@@ -54,7 +54,7 @@ export default function Resources({ formValues, nextStep, previousStep }) {
                     id="e12"
                     defaultValue={fields.e12}
                     errors={errors.e12}
-                    onChange={(e) => handleChange(e, "e12")}
+                    onChange={(e) => handleMultipleDependentChange(e, "e12", ["e12b","e12c","e12d"])}
                 />
             </Grid>
 
@@ -110,7 +110,7 @@ export default function Resources({ formValues, nextStep, previousStep }) {
                     id="e13"
                     defaultValue={fields.e13}
                     errors={errors.e13}
-                    onChange={(e) => handleChange(e, "e13")}
+                    onChange={(e) => handleMultipleDependentChange(e, "e13", ["e13b","e13c"])}
                 />
             </Grid>
 
