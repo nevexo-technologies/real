@@ -5,7 +5,7 @@ module.exports = {
     },
     {
         name: "discord-bot",
-        script: "/src/bots/ministrul-educational-alternativ/index.js",
+        script: "npm update-bot; npm bot",
         interpeter: "~/.nvm/versions/node/v16.14.2/bin/node"
     }]
 }
