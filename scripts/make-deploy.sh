@@ -1,3 +1,5 @@
+#!/bin/bash
+
 cd ~/real
 git pull
 npm install
