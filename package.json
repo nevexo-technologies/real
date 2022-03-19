@@ -1,17 +1,24 @@
 {
-  "name": "forms",
+  "name": "estereal-infrastructure",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "bot": "node src/bots/ministrul-educational-alternativ/index.js",
+    "update-bot": "node src/bots/ministrul-educational-alternativ/deploy-commands.js"
   },
   "dependencies": {
+    "@discordjs/builders": "^0.12.0",
+    "@discordjs/rest": "^0.3.0",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@mui/material": "^5.4.1",
-    "next": "12.0.10",
+    "discord-api-types": "^0.29.0",
+    "discord.js": "^13.6.0",
+    "dotenv": "^16.0.0",
+    "next": "^12.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.27.0",
