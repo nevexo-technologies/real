@@ -2,7 +2,7 @@ import { Button, FormHelperText, Grid, Slider, Typography, Box, FormControl, Sta
 import { useState } from 'react';
 import FormWrapper from '../FormWrapper';
 import RadioGroupResponsive from '../RadioGroupResponsive';
-import { validationSchema } from "./ValidationSchema";
+import getValidationSchema from "./ValidationSchema";
 
 export default function Community({ formValues, nextStep, previousStep }) {
     const [fields, setFields] = useState(formValues);
@@ -12,9 +12,10 @@ export default function Community({ formValues, nextStep, previousStep }) {
         setFields((values) => ({ ...values, [qId]: event.target.value }))
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
+        let validationSchema = await getValidationSchema();
         let schema = validationSchema.pick(['e15','e16','e17','e18','e19','e20','e21']);
         
         if (schema.isValidSync(fields, { abortEarly: false })) {

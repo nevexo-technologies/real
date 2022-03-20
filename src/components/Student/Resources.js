@@ -2,7 +2,7 @@ import { Button, FormHelperText, Grid, InputLabel, Select, MenuItem, Typography,
 import { useState } from 'react';
 import FormWrapper from '../FormWrapper';
 import RadioGroupResponsive from '../RadioGroupResponsive';
-import { validationSchema } from './ValidationSchema';
+import getValidationSchema from "./ValidationSchema";
 
 export default function Resources({ formValues, nextStep, previousStep }) {
     const [fields, setFields] = useState(formValues);
@@ -19,9 +19,10 @@ export default function Resources({ formValues, nextStep, previousStep }) {
 
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
+        let validationSchema = await getValidationSchema();
         let schema = validationSchema.pick(["e12", "e12b", "e12c", "e12d", "e13", "e13b", "e13c", "e14"])
 
         if (schema.isValidSync(fields, { abortEarly: false })) {

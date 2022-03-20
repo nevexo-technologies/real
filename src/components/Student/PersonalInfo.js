@@ -1,12 +1,19 @@
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, FormHelperText } from '@mui/material';
-import { useState } from 'react';
-import localization from '../../public/data/localization.json'
+import { useEffect, useState } from 'react';
 import FormWrapper from '../FormWrapper';
-import { validationSchema } from "./ValidationSchema";
+import getValidationSchema from "./ValidationSchema";
 
 export default function PersonalInfo({ formValues, nextStep }) {
     const [fields, setFields] = useState(formValues);
     const [errors, setErrors] = useState({});
+    const [localization, setLocalization] = useState({});
+
+    useEffect(() => {
+        fetch('/data/localization.json')
+        .then(data => data.json())
+        .then(data => setLocalization(data))
+        .catch(err => setLocalization({"A aparut o eroare, te rugam reincearca": ["A aparut o eroare, te rugam reincearca"]}));
+    }, [])
 
     const handleChange = (event, selectId) => {
         if (selectId) setFields((values) => ({ ...values, [selectId]: event.target.value }))
@@ -17,9 +24,10 @@ export default function PersonalInfo({ formValues, nextStep }) {
         setFields((values) => ({ ...values, [selectId]: event.target.value, [child]: null }))
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
+        let validationSchema = await getValidationSchema();
         let schema = validationSchema.pick(['email', 'age', 'location', 'hs', 'class', 'letter'])
 
         if (schema.isValidSync(fields, { abortEarly: false })) {

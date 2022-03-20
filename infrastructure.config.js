@@ -5,7 +5,7 @@ module.exports = {
     },
     {
         name: "discord-bot",
-        script: "npm update-bot; npm bot",
+        script: "npm run update-bot; npm run bot",
         interpeter: "~/.nvm/versions/node/v16.14.2/bin/node"
     }]
 }
