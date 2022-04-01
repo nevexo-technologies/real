@@ -30,9 +30,9 @@ export default function StudentForm() {
     <ThemeProvider theme={createMUITheme(prefersDarkMode)}>
       <CssBaseline />
       <Box sx={{
-        py:3,
-        minHeight:"100vh",
-        height:"100%",
+        py: 3,
+        minHeight: "100vh",
+        height: "100%",
         backgroundImage: prefersDarkMode ? "url(/background-dark.jpg)" : "url(/background-light.jpg)",
         backgroundSize: "cover",
         backgroundPosition: "center center"

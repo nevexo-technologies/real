@@ -86,10 +86,10 @@ export default function PersonalInfo({ formValues, nextStep }) {
                 <FormControl required fullWidth>
                     <InputLabel id="class-label">În ce clasă ești?</InputLabel>
                     <Select labelId='class-label' id="class" defaultValue={fields.class} label="În ce clasă ești?" onChange={(e) => handleChange(e, "class")}>
-                        <MenuItem value="9">Clasa a-9 a</MenuItem>
-                        <MenuItem value="10">Clasa a-10 a</MenuItem>
-                        <MenuItem value="11">Clasa a-11 a</MenuItem>
-                        <MenuItem value="12">Clasa a-12 a</MenuItem>
+                        <MenuItem value="9">Clasa a 9-a</MenuItem>
+                        <MenuItem value="10">Clasa a 10-a</MenuItem>
+                        <MenuItem value="11">Clasa a 11-a</MenuItem>
+                        <MenuItem value="12">Clasa a 12-a</MenuItem>
                     </Select>
                     <FormHelperText error>{errors.class}</FormHelperText>
                 </FormControl>
