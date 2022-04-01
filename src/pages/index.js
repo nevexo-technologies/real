@@ -7,6 +7,7 @@ import PersonalInfo from '../components/Student/PersonalInfo';
 import Opportunities from '../components/Student/Opportunities';
 import Resources from '../components/Student/Resources';
 import Community from '../components/Student/Community';
+import FormSubmit from '../components/Student/FormSubmit';
 
 
 export default function StudentForm() {
@@ -32,7 +33,7 @@ export default function StudentForm() {
         py:3,
         minHeight:"100vh",
         height:"100%",
-        backgroundImage: prefersDarkMode ? "url(https://images.unsplash.com/photo-1567095761054-7a02e69e5c43?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80)" : "url(https://images.unsplash.com/photo-1552084117-56a987666449?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80)",
+        backgroundImage: prefersDarkMode ? "url(/background-dark.jpg)" : "url(/background-light.jpg)",
         backgroundSize: "cover",
         backgroundPosition: "center center"
       }}>
@@ -67,7 +68,10 @@ export default function StudentForm() {
               <Community formValues={formValues} nextStep={nextStep} previousStep={previousStep} />
             )}
             {formStep == 4 && (
-              <pre style={{ whiteSpace: 'pre-wrap' }}>{JSON.stringify(formValues)}</pre>
+              <FormSubmit formValues={formValues} nextStep={nextStep} previousStep={previousStep} />
+            )}
+            {formStep == 5 && (
+              <pre style={{ whiteSpace: 'pre-wrap', overflowX: 'auto' }}>{`${JSON.stringify(formValues)}`}</pre>
             )}
 
           </Container>

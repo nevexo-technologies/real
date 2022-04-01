@@ -19,8 +19,13 @@ export default async function getValidationSchema() {
         e09: yup.number().integer().min(1).max(5).required("Te rugăm să alegi un răspuns."),
         e10: yup.number().integer().min(1).max(5).required("Te rugăm să alegi un răspuns."),
         e11: yup.number().integer().min(1).max(5).required("Te rugăm să alegi un răspuns."),
-        e12: yup.number().integer().min(0).max(1).required("Te rugăm să alegi un răspuns."),
-        e12b: yup.number().integer().min(1).max(5).when("e12", {
+        e12: yup.number().integer().min(1).max(5).required("Te rugăm să alegi un răspuns."),
+        e13: yup.number().integer().min(1).max(5).required("Te rugăm să alegi un răspuns."),
+        e14: yup.number().integer().min(1).max(5).required("Te rugăm să alegi un răspuns."),
+        e15: yup.number().integer().min(1).max(5).required("Te rugăm să alegi un răspuns."),
+        e16: yup.number().integer().min(0).max(1).required("Te rugăm să alegi un răspuns."),
+        e18: yup.number().integer().min(1).max(4).required("Te rugăm să alegi un răspuns."),
+        /*e12b: yup.number().integer().min(1).max(5).when("e12", {
             is: 1,
             then: (schema) => schema.required("Te rugăm să alegi un răspuns.").typeError("Te rugăm să alegi un răspuns."),
             otherwise: (schema) => schema.nullable()
@@ -53,6 +58,6 @@ export default async function getValidationSchema() {
         e18: yup.number().integer().min(1).max(5).required("Te rugăm să alegi un răspuns."),
         e19: yup.number().integer().min(1).max(5).required("Te rugăm să alegi un răspuns."),
         e20: yup.number().integer().min(1).max(5).required("Te rugăm să alegi un răspuns."),
-        e21: yup.number().integer().min(0).max(2).required("Te rugăm să alegi un răspuns."),
+        e21: yup.number().integer().min(0).max(2).required("Te rugăm să alegi un răspuns."),*/
     });
 }

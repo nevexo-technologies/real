@@ -2,10 +2,11 @@ const fs = require('node:fs');
 const path = require('path');
 const { Client, Intents, Collection } = require('discord.js');
 const dotenv = require('dotenv');
+const models = require('../../database/models/index');
 
 dotenv.config();
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS] });
 
 client.commands = new Collection();
 const commandFiles = fs.readdirSync(path.resolve(__dirname, './commands')).filter(file => file.endsWith('.js'));
@@ -19,8 +20,34 @@ client.once('ready', () => {
     console.log("Ready!");
 });
 
-client.on("guildMemberAdd", member => {
-    member.guild.channels.get('951520741315190814').send(`Welcome ${member.nickname}`);
+client.on("guildMemberAdd", async member => {
+    let isAmbassador = await models.Ambassadors.findOne({
+        where: { discordId: member.id }
+    })
+
+    if (!isAmbassador) {
+        let lastInsert = await models.Ambassadors.findOne({
+            order: [['createdAt', 'DESC']],
+        })
+
+        let lastId = 0;
+        if (lastInsert) lastId = lastInsert.id;
+        let refCode = `AMB${("000" + (lastId + 1)).slice(-3)}`;
+
+        await models.Ambassadors.create({
+            code: refCode,
+            discordName: member.displayName,
+            discordId: member.id,
+        }).then(result => {
+            member.send(`Bună, ${member.displayName}!\n
+Bine ai venit în Registrul Educațional Alternativ! Ne bucurăm că ai ales să ni te alături ca ambasador și sperăm că împreună vom reuși să ajutăm cât mai mulți viitori liceeni!\n
+Ce poți face imediat? (O să completez eu aici când am terminat kitul de onboarding)\n
+Când vom începe colectarea răspunsurilor pentru chestionarul REAL, te rugăm să folosești acest link: https://formular.estereal.ro/?ref=${result.code} pentru a îl da mai departe. Este link-ul tău personal, iar cu ajutorul lui vom ști cât de multe completări ai adus! Fiecare completare a chestionarului făcută de pe link-ul tău valorează x puncte. Ambasadorii care au strâns cele mai multe puncte vor fi premiați la Gala REAL, care se va desfășura la finalul lunii mai.\n
+Avem {aici} o secțiune cu întrebări frecvente în caz că ai vreo nelămurire. În rest, poți oricând să lași întrebări pe canalul general sau în privat la unul din membrii echipei.\n
+Te așteptăm pe server!\n
+#estereal\n`);
+        });
+    }
 });
 
 client.on('interactionCreate', async interaction => {
