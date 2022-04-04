@@ -10,9 +10,9 @@ export default function PersonalInfo({ formValues, nextStep }) {
 
     useEffect(() => {
         fetch('/data/localization.json')
-        .then(data => data.json())
-        .then(data => setLocalization(data))
-        .catch(err => setLocalization({"A aparut o eroare, te rugam reincearca": ["A aparut o eroare, te rugam reincearca"]}));
+            .then(data => data.json())
+            .then(data => setLocalization(data))
+            .catch(err => setLocalization({ "A aparut o eroare, te rugam reincearca": ["A aparut o eroare, te rugam reincearca"] }));
     }, [])
 
     const handleChange = (event, selectId) => {
@@ -28,7 +28,7 @@ export default function PersonalInfo({ formValues, nextStep }) {
         e.preventDefault();
 
         let validationSchema = await getValidationSchema();
-        let schema = validationSchema.pick(['email', 'age', 'location', 'hs', 'class', 'letter', 'eth'])
+        let schema = validationSchema.pick(['email', 'age', 'location', 'hs', 'class', 'letter', 'eth', 'eth_full'])
 
         if (schema.isValidSync(fields, { abortEarly: false })) {
             nextStep(fields);
@@ -95,24 +95,31 @@ export default function PersonalInfo({ formValues, nextStep }) {
                 </FormControl>
             </Grid>
 
-            <Grid item xs={12} sm={6}> {/* POSIBIL SA AVEM NEVOIE DE MAI MULTE LITERE PT LITERA CLASEI */}
-                <TextField required id="letter" fullWidth defaultValue={fields.letter} label="Care este litera clasei tale?" inputProps={{ maxLength: 1 }} onChange={handleChange} />
+            <Grid item xs={12} sm={6}>
+                <TextField required id="letter" fullWidth defaultValue={fields.letter} label="Care este litera clasei tale?" inputProps={{ maxLength: 5 }} onChange={handleChange} />
                 <FormHelperText error>{errors.letter}</FormHelperText>
             </Grid>
 
             <Grid item xs={12} sm={12}>
                 <FormControl required fullWidth>
-                    <InputLabel id="class-label">Care este etnia ta?</InputLabel>
-                    <Select labelId='class-label' id="eth" defaultValue={fields.eth} label="Care este etnia ta?" onChange={(e) => handleChange(e, "eth")}>
+                    <InputLabel id="eth-label">Care este etnia ta?</InputLabel>
+                    <Select labelId='eth-label' id="eth" defaultValue={fields.eth} label="Care este etnia ta?" onChange={(e) => handleChange(e, "eth")}>
                         <MenuItem value="ro">Român</MenuItem>
                         <MenuItem value="mgh">Maghiar</MenuItem>
-                        <MenuItem value="rrom">Rrom</MenuItem>
+                        <MenuItem value="rrom">Rom</MenuItem>
                         <MenuItem value="alta">Altă etnie</MenuItem>
                         <MenuItem value="nr">Nu doresc să raspund</MenuItem>
                     </Select>
                     <FormHelperText error>{errors.eth}</FormHelperText>
                 </FormControl>
             </Grid>
+
+            {fields.eth == "alta" && (
+                <Grid item xs={12} sm={12}>
+                    <TextField required id="eth-full" defaultValue={fields.eth_full} fullWidth label="Scrie etnia ta" type="text" onChange={handleChange} />
+                    <FormHelperText error>{errors.eth_full}</FormHelperText>
+                </Grid>
+            )}
         </FormWrapper>
     )
 }

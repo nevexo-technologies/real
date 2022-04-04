@@ -2,6 +2,7 @@ import { Button, FormHelperText, Grid, FormGroup, Checkbox, MenuItem, Typography
 import { useState } from 'react';
 import FormWrapper from '../FormWrapper';
 import RadioGroupResponsive from '../RadioGroupResponsive';
+import CheckboxGroup from '../CheckboxGroup';
 import getValidationSchema from "./ValidationSchema";
 
 export default function Resources({ formValues, nextStep, previousStep }) {
@@ -20,6 +21,8 @@ export default function Resources({ formValues, nextStep, previousStep }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        console.log(fields);
 
         let validationSchema = await getValidationSchema();
         let schema = validationSchema.pick(["e19", "e20", "e21", "e22", "e23", "e24", "e24b", "e25", "e25b"])
@@ -47,20 +50,14 @@ export default function Resources({ formValues, nextStep, previousStep }) {
     return (
         <FormWrapper onSubmit={handleSubmit} onPrevious={handlePrevious}>
             <Grid item xs={12} sm={12}>
-                <FormGroup
-                    onChange={(e) => handleChange(e, "e19")}>
-                    <Typography id={`e19-label`}>Selectează, din următoarea listă, dotările care sunt puse la dispoziție în liceu:</Typography>
-                    <FormHelperText error>{errors.e19}</FormHelperText>
-                    <FormControlLabel control={<Checkbox />} label="Bănci" />
-                    <FormControlLabel control={<Checkbox />} label="Scaune" />
-                    <FormControlLabel control={<Checkbox />} label="Catedră" />
-                    <FormControlLabel control={<Checkbox />} label="Spații de depozitare" />
-                    <FormControlLabel control={<Checkbox />} label="Tablă" />
-                    <FormControlLabel control={<Checkbox />} label="Aer condiționat" />
-                    <FormControlLabel control={<Checkbox />} label="Calculatoare" />
-                    <FormControlLabel control={<Checkbox />} label="Laboratoare" />
-                    <FormControlLabel control={<Checkbox />} label="Automat cu mâncare" />
-                </FormGroup>
+                <CheckboxGroup
+                    label="Selectează, din următoarea listă, dotările care sunt puse la dispoziție în liceu:"
+                    id="e19"
+                    defaultValue={fields.e19}
+                    errors={errors.e19}
+                    onChange={(e) => handleChange(e, "e19")}
+                    options={["Bănci", "Scaune", "Catedră", "Spații de depozitare", "Tablă", "Aer condiționat", "Calculatoare", "Laboratoare", "Automat cu mâncare"]}
+                />
             </Grid>
 
             <Grid item xs={12} sm={12}>

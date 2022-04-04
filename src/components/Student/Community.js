@@ -35,6 +35,7 @@ export default function Community({ formValues, nextStep, previousStep }) {
     }
 
     const handlePrevious = (e) => {
+        console.log(fields);
         previousStep();
     }
 

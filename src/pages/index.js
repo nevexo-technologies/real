@@ -11,7 +11,7 @@ import FormSubmit from '../components/Student/FormSubmit';
 
 
 export default function StudentForm() {
-  const [formStep, setFormStep] = useState(0);
+  const [formStep, setFormStep] = useState(2);
   const stepsName = ['Despre tine', 'Oportunități', 'Resurse', 'Comunitate'];
   const [formValues, setFormValues] = useState({});
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -19,10 +19,12 @@ export default function StudentForm() {
   const nextStep = (values) => {
     setFormValues(values);
     setFormStep((currentStep) => currentStep + 1);
+    window.scrollTo(0,0);
   }
 
   const previousStep = () => {
     setFormStep((currentStep) => currentStep - 1);
+    window.scrollTo(0,0);
   }
 
   // TODO: implementat functionalitate referral
@@ -33,7 +35,7 @@ export default function StudentForm() {
         py: 3,
         minHeight: "100vh",
         height: "100%",
-        backgroundImage: prefersDarkMode ? "url(/background-dark.jpg)" : "url(/background-light.jpg)",
+        backgroundImage: prefersDarkMode ? "url(/background-dark.png)" : "url(/background-light.png)",
         backgroundSize: "cover",
         backgroundPosition: "center center"
       }}>
@@ -75,7 +77,7 @@ export default function StudentForm() {
             )}
 
           </Container>
-          <Typography variant="overline">Creat cu ❤️ de Registrul Educațional Alternativ</Typography>
+          <Typography sx={{color:'white'}} variant="overline">Creat cu ❤️ de Registrul Educațional Alternativ</Typography>
         </Container>
       </Box>
     </ThemeProvider>

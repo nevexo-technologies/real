@@ -110,12 +110,15 @@ export default function RadioGroupResponsive({ id, label, helper, errors, defaul
                         onChange={onChange}
                     >
                         {Object.keys(formChoices).includes(type) && formChoices[type].map((item, idx) => {
-                            return <FormControlLabel key={idx} value={item.value} control={<Radio />} label={item.label} labelPlacement={isInline ? 'bottom' : 'right'} />
+                            return <FormControlLabel key={idx} value={item.value} control={<Radio />} label={item.label} labelPlacement={isInline ? 'bottom' : 'end'} />
                         })}
 
                         {type == 'custom' && customOptions.map((item, idx) => {
-                            return <FormControlLabel key={idx} value={item.value} control={<Radio />} label={item.label} labelPlacement={isInline ? 'bottom' : 'right'} />
+                            return <FormControlLabel key={idx} value={item.value} control={<Radio />} label={item.label} labelPlacement={isInline ? 'bottom' : 'end'} />
                         })}
+                        
+                        {isInline && (<br/>)}
+                        <FormControlLabel value="-1" control={<Radio />} label="Nu știu/Nu răspund" labelPlacement='end' />
 
                     </RadioGroup>
                 </FormControl>
