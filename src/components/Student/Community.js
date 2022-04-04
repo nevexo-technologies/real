@@ -2,6 +2,7 @@ import { Button, FormHelperText, Grid, FormGroup, Checkbox, Typography, Box, Tex
 import { useState } from 'react';
 import FormWrapper from '../FormWrapper';
 import RadioGroupResponsive from '../RadioGroupResponsive';
+import CheckboxGroup from '../CheckboxGroup';
 import getValidationSchema from "./ValidationSchema";
 
 export default function Community({ formValues, nextStep, previousStep }) {
@@ -150,22 +151,14 @@ export default function Community({ formValues, nextStep, previousStep }) {
             </Grid>
 
             <Grid item xs={12} sm={12}>
-                <FormGroup
-                    onChange={(e) => handleChange(e, "e33")}>
-                    <Typography id={`e33-label`}>Care sunt principalele tale surse de stres?</Typography>
-                    <FormHelperText error>{errors.e33}</FormHelperText>
-                    <FormControlLabel control={<Checkbox />} label="Colectivul de elevi" />
-                    <FormControlLabel control={<Checkbox />} label="Colectivul de profesori" />
-                    <FormControlLabel control={<Checkbox />} label="Prestigiul liceului" />
-                    <FormControlLabel control={<Checkbox />} label="Programul" />
-                    <FormControlLabel control={<Checkbox />} label="Transportul către liceu" />
-                    <FormControlLabel control={<Checkbox />} label="Temele pentru acasă" />
-                    <FormControlLabel control={<Checkbox />} label="Evaluările" />
-                    <FormControlLabel control={<Checkbox />} label="Personalul auxiliar (secretariat, pază, etc.)" />
-                    <FormControlLabel control={<Checkbox />} label="Lipsa de timp pentru pregătire" />
-                    <FormControlLabel control={<Checkbox />} label="Altele" />
-                    <FormControlLabel control={<Checkbox />} label="Niciuna" />
-                </FormGroup>
+                <CheckboxGroup
+                    label="Care sunt principalele tale surse de stres?"
+                    id="e33"
+                    defaultValue={fields.e33}
+                    errors={errors.e33}
+                    onChange={(e) => handleChange(e, "e33")}
+                    options={["Colectivul de elevi", "Colectivul de profesori", "Prestigiul liceului", "Programul", "Transportul către liceu", "Temele pentru acasă", "Evaluările", "Personalul auxiliar (secretariat, pază, etc.)", "Lipsa de timp pentru pregătire", "Altele", "Niciuna"]}
+                />
             </Grid>
 
             <Grid item xs={12} sm={12}>
@@ -232,17 +225,31 @@ export default function Community({ formValues, nextStep, previousStep }) {
             </Grid>
 
             <Grid item xs={12} sm={12}>
-                <FormGroup
-                    onChange={(e) => handleChange(e, "e38")}>
-                    <Typography id={`e38-label`}>Selectează cazurile care se potrivesc pentru liceul tău:</Typography>
-                    <FormHelperText error>{errors.e38}</FormHelperText>
-                    <FormControlLabel control={<Checkbox />} label="Există discriminare din partea profesorilor față de elevi" />
-                    <FormControlLabel control={<Checkbox />} label="Există discriminare din partea elevilor față de profesori" />
-                    <FormControlLabel control={<Checkbox />} label="Există discriminare din partea profesorilor față de profesori" />
-                    <FormControlLabel control={<Checkbox />} label="Există discriminare din partea elevilor față de elevi" />
-                    <FormControlLabel control={<Checkbox />} label="Nu există discriminare" />
-                </FormGroup>
+                <CheckboxGroup
+                    label="Selectează cazurile care se potrivesc pentru liceul tău:"
+                    id="e38"
+                    defaultValue={fields.e38}
+                    errors={errors.e38}
+                    onChange={(e) => handleChange(e, "e38")}
+                    options={["Există discriminare din partea profesorilor față de elevi", "Există discriminare din partea elevilor față de profesori", "Există discriminare din partea profesorilor față de profesori", "Există discriminare din partea elevilor față de elevi", "Nu există discriminare"]}
+                />
             </Grid>
+
+            {(fields.e38 && fields.e38.length > 0 && !fields.e38.includes("4")) && (
+                <Grid item xs={12} sm={12}>
+                    <Typography id={`e38b-label`}>Te rugăm să ne povestești un exemplu de discriminare din liceul tău.</Typography>
+                    <FormHelperText error>{errors.e38b}</FormHelperText>
+                    <TextField
+                        id="e38b"
+                        label="Introdu aici exemplul tău."
+                        multiline
+                        rows={4}
+                        value={fields.e38b}
+                        fullWidth
+                        onChange={(e) => handleChange(e, "e38b")}
+                    />
+                </Grid>
+            )}
 
             <Grid item xs={12} sm={12}>
                 <RadioGroupResponsive
@@ -284,17 +291,31 @@ export default function Community({ formValues, nextStep, previousStep }) {
             </Grid>
 
             <Grid item xs={12} sm={12}>
-                <FormGroup
-                    onChange={(e) => handleChange(e, "e41")}>
-                    <Typography id={`e41-label`}>Selectează cazurile care se potrivesc pentru liceul tău:</Typography>
-                    <FormHelperText error>{errors.e41}</FormHelperText>
-                    <FormControlLabel control={<Checkbox />} label="Există comportament agresiv din partea profesorilor față de elevi" />
-                    <FormControlLabel control={<Checkbox />} label="Există comportament agresiv din partea elevilor față de profesori" />
-                    <FormControlLabel control={<Checkbox />} label="Există comportament agresiv din partea profesorilor față de profesori" />
-                    <FormControlLabel control={<Checkbox />} label="Există comportament agresiv din partea elevilor față de elevi" />
-                    <FormControlLabel control={<Checkbox />} label="Nu există comportament agresiv" />
-                </FormGroup>
+                <CheckboxGroup
+                    label="Selectează cazurile care se potrivesc pentru liceul tău:"
+                    id="e41"
+                    defaultValue={fields.e41}
+                    errors={errors.e41}
+                    onChange={(e) => handleChange(e, "e41")}
+                    options={["Există comportament agresiv din partea profesorilor față de elevi", "Există comportament agresiv din partea elevilor față de profesori", "Există comportament agresiv din partea profesorilor față de profesori", "Există comportament agresiv din partea elevilor față de elevi", "Nu există comportament agresiv"]}
+                />
             </Grid>
+
+            {(fields.e41 && fields.e41.length > 0 && !fields.e41.includes("4")) && (
+                <Grid item xs={12} sm={12}>
+                    <Typography id={`e41b-label`}>Te rugăm să ne povestești un exemplu de comportament agresiv din liceul tău.</Typography>
+                    <FormHelperText error>{errors.e41b}</FormHelperText>
+                    <TextField
+                        id="e41b"
+                        label="Introdu aici exemplul tău."
+                        multiline
+                        rows={4}
+                        value={fields.e41b}
+                        fullWidth
+                        onChange={(e) => handleChange(e, "e41b")}
+                    />
+                </Grid>
+            )}
 
             <Grid item xs={12} sm={12}>
                 <RadioGroupResponsive

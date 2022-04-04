@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import FormWrapper from '../FormWrapper';
 import getValidationSchema from "./ValidationSchema";
 
-export default function FormSubmit({ formValues, nextStep }) {
+export default function FormSubmit({ formValues, nextStep, previousStep }) {
     const [fields, setFields] = useState(formValues);
     const [errors, setErrors] = useState({});
 
@@ -38,8 +38,12 @@ export default function FormSubmit({ formValues, nextStep }) {
         }
     }
 
+    const handlePrevious = (e) => {
+        previousStep();
+    }
+
     return (
-        <FormWrapper onSubmit={handleSubmit}>
+        <FormWrapper onSubmit={handleSubmit} onPrevious={handlePrevious}>
             <Grid item xs={12} sm={12}>
                 <h1 style={{margin:0}}>Multumim! ❤️</h1>
                 <p style={{margin:0}}>Ai parcurs cu succes tot formularul!</p>

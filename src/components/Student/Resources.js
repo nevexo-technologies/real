@@ -73,17 +73,14 @@ export default function Resources({ formValues, nextStep, previousStep }) {
             </Grid>
 
             <Grid item xs={12} sm={12}>
-                <FormGroup
-                    onChange={(e) => handleChange(e, "e21")}>
-                    <Typography id={`e21-label`}>Selectează, din următoarea listă, obiectele care îți sunt puse mereu la dispoziție de către liceu:</Typography>
-                    <FormHelperText error>{errors.e21}</FormHelperText>
-                    <FormControlLabel control={<Checkbox />} label="Cretă/Markere" />
-                    <FormControlLabel control={<Checkbox />} label="Săpun" />
-                    <FormControlLabel control={<Checkbox />} label="Hârtie igienică" />
-                    <FormControlLabel control={<Checkbox />} label="Dezinfectant" />
-                    <FormControlLabel control={<Checkbox />} label="Burete pentru tablă" />
-                    <FormControlLabel control={<Checkbox />} label="Consumabile pentru laboratoare (de exemplu, reactivi pentru laboratorul de chimie etc.)" />
-                </FormGroup>
+                <CheckboxGroup
+                    label="Selectează, din următoarea listă, obiectele care îți sunt puse mereu la dispoziție de către liceu:"
+                    id="e21"
+                    defaultValue={fields.e21}
+                    errors={errors.e21}
+                    onChange={(e) => handleChange(e, "e21")}
+                    options={["Cretă/Markere", "Săpun", "Hârtie igienică", "Dezinfectant", "Burete pentru tablă", "Consumabile pentru laboratoare (de exemplu, reactivi pentru laboratorul de chimie etc.)"]}
+                />
             </Grid>
 
             <Grid item xs={12} sm={12}>
