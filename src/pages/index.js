@@ -36,7 +36,7 @@ export default function StudentForm() {
         minHeight: "100vh",
         height: "100%",
         backgroundImage: prefersDarkMode ? "url(/background-dark.png)" : "url(/background-light.png)",
-        backgroundSize: "contain",
+        backgroundSize: "cover",
         backgroundPosition: "center center"
       }}>
         <Container maxWidth="sm">

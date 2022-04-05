@@ -139,10 +139,14 @@ export default function Community({ formValues, nextStep, previousStep }) {
                         },
                         {
                             value: 3,
-                            label: 'Relaxat'
+                            label: 'Moderat'
                         },
                         {
                             value: 4,
+                            label: 'Relaxat'
+                        },
+                        {
+                            value: 5,
                             label: 'Foarte relaxat'
                         },
                     ]}
@@ -336,10 +340,14 @@ export default function Community({ formValues, nextStep, previousStep }) {
                         },
                         {
                             value: 3,
-                            label: 'Greu'
+                            label: 'Moderat'
                         },
                         {
                             value: 4,
+                            label: 'Greu'
+                        },
+                        {
+                            value: 5,
                             label: 'Foarte greu'
                         },
                     ]}
