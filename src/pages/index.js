@@ -11,7 +11,7 @@ import FormSubmit from '../components/Student/FormSubmit';
 
 
 export default function StudentForm() {
-  const [formStep, setFormStep] = useState(3);
+  const [formStep, setFormStep] = useState(0);
   const stepsName = ['Despre tine', 'Oportunități', 'Resurse', 'Comunitate'];
   const [formValues, setFormValues] = useState({});
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
