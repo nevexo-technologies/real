@@ -14,13 +14,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Ambassadors.init({
-    code: DataTypes.STRING,
     discordName: DataTypes.STRING,
     discordId: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Ambassadors',
   });
-  
   return Ambassadors;
 };
