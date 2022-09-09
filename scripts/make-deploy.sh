@@ -1,7 +1,17 @@
 #!/bin/bash
+repo_root=`git rev-parse --show-toplevel`
+cd $repo_root
 
-echo "Going to root directory of repository..."
-cd ~/real
+source .env
+
+mkdir -p backups
+
+backup_date=$(date +%Y%m%d)
+backup_dir=`mkdir -p $backup_date`
+
+backup_name="$repo_root/backups/$backup_date/backup-$backup_date.tar.gz"
+backup_progress=`tar --exclude='./backups' -czf $backup_name *`
+database_progress=`mysqldump -u $DB_USER -p$DB_PASS $DB_NAME > $repo_root/backups/$backup_date/database.sql`
 
 echo "Checking for updates on main branch..."
 git pull
@@ -11,6 +21,8 @@ npm ci
 
 echo "Creating build files..."
 npm run build
+
+npx sequelize-cli db:migrate
 
 echo "Restarting PM2 processes..."
 pm2 delete all

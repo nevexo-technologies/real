@@ -115,7 +115,7 @@ export default function Resources({ formValues, nextStep, previousStep }) {
                     id="e21"
                     defaultValue={fields.e24}
                     errors={errors.e24}
-                    onChange={(e) => handleChange(e, "e24")}
+                    onChange={(e) => handleMultipleDependentChange(e, "e24", ["e24b"])}
                     customOptions={[
                         {
                             value: 2,
@@ -154,7 +154,7 @@ export default function Resources({ formValues, nextStep, previousStep }) {
                     id="e25"
                     defaultValue={fields.e25}
                     errors={errors.e25}
-                    onChange={(e) => handleChange(e, "e25")}
+                    onChange={(e) => handleMultipleDependentChange(e, "e25", ["e25b"])}
                     customOptions={[
                         {
                             value: 2,

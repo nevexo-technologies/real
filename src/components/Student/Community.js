@@ -17,7 +17,7 @@ export default function Community({ formValues, nextStep, previousStep }) {
         e.preventDefault();
 
         let validationSchema = await getValidationSchema();
-        let schema = validationSchema.pick(['e26', 'e27', 'e28', 'e29', 'e30', 'e31', 'e32', 'e33', 'e34', 'e35', 'e36', 'e37', 'e38', 'e39', 'e40', 'e41', 'e42', 'e43']);
+        let schema = validationSchema.pick(['e26', 'e27', 'e28', 'e29', 'e30', 'e31', 'e32', 'e33', 'e34', 'e35', 'e36', 'e37', 'e38', 'e38b', 'e39', 'e39b', 'e40', 'e41', 'e41b', 'e42', 'e43']);
 
         if (schema.isValidSync(fields, { abortEarly: false })) {
             nextStep(fields);
