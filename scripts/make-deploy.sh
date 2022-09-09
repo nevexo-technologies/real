@@ -4,10 +4,8 @@ cd $repo_root
 
 source .env
 
-mkdir -p backups
-
 backup_date=$(date +%Y%m%d)
-backup_dir=`mkdir -p $backup_date`
+backup_dir=`mkdir -p backups/$backup_date`
 
 backup_name="$repo_root/backups/$backup_date/backup-$backup_date.tar.gz"
 backup_progress=`tar --exclude='./backups' -czf $backup_name *`
