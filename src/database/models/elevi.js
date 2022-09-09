@@ -1,7 +1,7 @@
 import { Model, DataTypes } from 'sequelize';
 import connection from '../connection';
 
-const initUser = (sequelize, DataTypes) => {
+const initElevi = (sequelize, DataTypes) => {
   class Elevi extends Model {
     /**
      * Helper method for defining associations.
@@ -116,4 +116,4 @@ const initUser = (sequelize, DataTypes) => {
   return Elevi;
 };
 
-export default initUser(connection, DataTypes);
+export default initElevi(connection, DataTypes);
