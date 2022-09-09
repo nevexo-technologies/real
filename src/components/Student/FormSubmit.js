@@ -13,6 +13,9 @@ export default function FormSubmit({ formValues, nextStep, previousStep, startTi
 
         await fetch(`/api/elevi`, {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
             body: JSON.stringify(fields),
         }).then(res => res.json()).then(res => {
             if (res.success) setFormValid(1);
