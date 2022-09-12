@@ -9,9 +9,9 @@ export default function FormSubmit({ formValues, nextStep, previousStep, startTi
     const [isFormValid, setFormValid] = useState(-1);
 
     useEffect(async () => {
-        console.log(fields);
+        console.log(JSON.stringify(fields));
 
-        await fetch(`/api/elevi`, {
+        await fetch(`/api/profesori`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ export default function FormSubmit({ formValues, nextStep, previousStep, startTi
 
             console.log(JSON.stringify(res));
         })
-    });
+    }, []);
 
     const handleChange = (event, selectId) => {
         if (selectId) setFields((values) => ({ ...values, [selectId]: event.target.value }))
@@ -67,12 +67,12 @@ export default function FormSubmit({ formValues, nextStep, previousStep, startTi
                     <Grid item xs={12} sm={12}>
                         <strong>
                             <h1 style={{ margin: 0 }}>Multumim! ❤️</h1>
-                            <p style={{ margin: 0 }}>Ai parcurs cu succes tot formularul!</p>
+                            <p style={{ margin: 0 }}>Ați parcurs cu succes tot formularul!</p>
                         </strong>
-                        <small style={{ fontWeight: 300 }}>Daca dorești, mai poți lăsa câteva recomandări comunității tale.</small>
+                        <small style={{ fontWeight: 300 }}>Daca doriți, mai puteți lăsa câteva recomandări comunității dvs.</small>
                     </Grid>
                     <Grid item xs={12} sm={12}>
-                        <Typography id={`r1-label`}>Ce sfaturi i-ai da unui viitor elev în liceul tău?</Typography>
+                        <Typography id={`r1-label`}>Ce recomandări ați oferi elevilor din liceul în care predați?</Typography>
                         <FormHelperText error>{errors.r1}</FormHelperText>
                         <TextField
                             id="r1"
@@ -86,7 +86,7 @@ export default function FormSubmit({ formValues, nextStep, previousStep, startTi
                     </Grid>
 
                     <Grid item xs={12} sm={12}>
-                        <Typography id={`r2-label`}>Ce sfaturi le-ai da profesorilor tăi?</Typography>
+                        <Typography id={`r2-label`}>Ce recomandări ați oferi viitorilor profesori care ar dori să se angajeze în liceul în care predați?</Typography>
                         <FormHelperText error>{errors.r2}</FormHelperText>
                         <TextField
                             id="r2"
@@ -100,8 +100,8 @@ export default function FormSubmit({ formValues, nextStep, previousStep, startTi
                     </Grid>
 
                     <Grid item xs={12} sm={12}>
-                        <Typography id={`r3-label`}>Ce recomandări ai propune conducerii liceului în care înveți?</Typography>
-                        <FormHelperText error>{errors.r3}</FormHelperText>
+                        <Typography id={`r3-label`}>Ce recomandări ați oferi personalului administrativ pentru a îmbunătăți liceul în care predați?</Typography>
+                        <FormHelperText error>{errors.r2}</FormHelperText>
                         <TextField
                             id="r3"
                             label="Introdu aici exemplul tău."
@@ -112,6 +112,22 @@ export default function FormSubmit({ formValues, nextStep, previousStep, startTi
                             onChange={(e) => handleChange(e, "r3")}
                         />
                     </Grid>
+
+                    <Grid item xs={12} sm={12}>
+                        <Typography id={`r4-label`}>Ce recomandări ați oferi factorilor decizionali?</Typography>
+                        <FormHelperText>Factorii decizionali includ: Guvernul, Ministerul Educației etc.</FormHelperText>
+                        <FormHelperText error>{errors.r2}</FormHelperText>
+                        <TextField
+                            id="r4"
+                            label="Introdu aici exemplul tău."
+                            multiline
+                            rows={4}
+                            value={fields.r4}
+                            fullWidth
+                            onChange={(e) => handleChange(e, "r4")}
+                        />
+                    </Grid>
+
                 </FormWrapper>
             )}
             {isFormValid == 0 && (
@@ -119,9 +135,9 @@ export default function FormSubmit({ formValues, nextStep, previousStep, startTi
                     <Grid item xs={12} sm={12}>
                         <strong>
                             <h1 style={{ margin: 0 }}>Ne pare rău! &#128577;</h1>
-                            <p style={{ margin: 0 }}>Din păcate, informațiile trimise de tine nu au trecut testele noastre anti-spam.</p>
+                            <p style={{ margin: 0 }}>Din păcate, informațiile trimise de dvs. nu au trecut testele noastre anti-spam.</p>
                         </strong>
-                        <small style={{ fontWeight: 300 }}>Daca dorești, poți reîncerca.</small>
+                        <small style={{ fontWeight: 300 }}>Dacă doriți, puteți reîncerca.</small>
                     </Grid>
                 </FormWrapper>
             )}

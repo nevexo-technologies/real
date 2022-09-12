@@ -28,13 +28,17 @@ export default function REALForm() {
           <Grid item xs={12} sm={4} xl={4}>
             <Container variant="floating">
               <h2>Profesori</h2>
-              <Button variant="contained" type="submit">Începe formularul</Button>
+              <Link href={`/profesori${ref ? '?ref=' + ref : ''}`}>
+                <Button variant="contained" type="submit">Începe formularul</Button>
+              </Link>
             </Container>
           </Grid>
           <Grid item xs={12} sm={4} xl={4}>
             <Container variant="floating">
               <h2>Părinți</h2>
-              <Button variant="contained" type="submit">Începe formularul</Button>
+              <Link href={`/parinti${ref ? '?ref=' + ref : ''}`}>
+                <Button variant="contained" type="submit">Începe formularul</Button>
+              </Link>
             </Container>
           </Grid>
         </Grid>

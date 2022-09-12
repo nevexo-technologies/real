@@ -3,11 +3,11 @@ import { useRouter } from 'next/router';
 
 import { Step, StepLabel, Stepper, Typography, Box, Container, Chip } from '@mui/material';
 
-import PersonalInfo from '../components/Students/PersonalInfo';
-import Opportunities from '../components/Students/Opportunities';
-import Resources from '../components/Students/Resources';
-import Community from '../components/Students/Community';
-import FormSubmit from '../components/Students/FormSubmit';
+import PersonalInfo from '../components/Teachers/PersonalInfo';
+import Opportunities from '../components/Teachers/Opportunities';
+import Resources from '../components/Teachers/Resources';
+import Community from '../components/Teachers/Community';
+import FormSubmit from '../components/Teachers/FormSubmit';
 import Layout from '../components/Layout';
 
 export default function StudentForm() {
@@ -17,7 +17,7 @@ export default function StudentForm() {
     const startTime = Date.now();
 
     const [formStep, setFormStep] = useState(0);
-    const stepsName = ['Despre tine', 'Oportunități', 'Resurse', 'Comunitate'];
+    const stepsName = ['Despre dvs.', 'Oportunități', 'Resurse', 'Comunitate'];
     const [formValues, setFormValues] = useState({ ref: ref, startTime: startTime });
 
     const nextStep = (values) => {

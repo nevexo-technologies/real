@@ -49,19 +49,19 @@ export default function PersonalInfo({ formValues, nextStep }) {
     return (
         <FormWrapper onSubmit={handleSubmit}>
             <Grid item xs={12} sm={6}>
-                <TextField required id="email" defaultValue={fields.email} fullWidth label="Emailul tău" type="email" onChange={handleChange} />
+                <TextField required id="email" defaultValue={fields.email} fullWidth label="Emailul dumneavoastră" type="email" onChange={handleChange} />
                 <FormHelperText error>{errors.email}</FormHelperText>
             </Grid>
 
             <Grid item xs={12} sm={6}>
-                <TextField required id="age" fullWidth defaultValue={fields.age} label="Vârsta ta" type="number" onChange={handleChange} />
+                <TextField required id="age" fullWidth defaultValue={fields.age} label="Vârsta dumneavoastră" type="number" onChange={handleChange} />
                 <FormHelperText error>{errors.age}</FormHelperText>
             </Grid>
 
             <Grid item xs={12}>
                 <FormControl required fullWidth>
-                    <InputLabel id="location-label">În ce localitate înveți?</InputLabel>
-                    <Select labelId='location-label' id="location" defaultValue={fields.location ? fields.location : ''} label="În ce localitate înveți?" onChange={(e) => handleDependentChange(e, "location", "hs")}>
+                    <InputLabel id="location-label">În ce localitate învață copilul dumneavoastră?</InputLabel>
+                    <Select labelId='location-label' id="location" defaultValue={fields.location ? fields.location : ''} label="În ce localitate învață copilul dumneavoastră?" onChange={(e) => handleDependentChange(e, "location", "hs")}>
                         {'' || Object.keys(localization).map((locality, i) => {
                             return <MenuItem key={i} value={locality}>{locality}</MenuItem>
                         })}
@@ -72,8 +72,8 @@ export default function PersonalInfo({ formValues, nextStep }) {
 
             <Grid item xs={12}>
                 <FormControl required fullWidth disabled={fields.location == null}>
-                    <InputLabel id="hs-label">La ce liceu înveți? {fields.location == null ? '(Selectează o localitate mai întâi.)' : ''}</InputLabel>
-                    <Select labelId='hs-label' id="hs" defaultValue={fields.hs ? fields.hs : ''} label="La ce liceu înveți?" onChange={(e) => handleChange(e, "hs")}>
+                    <InputLabel id="hs-label">La ce liceu învață copilul dumneavoastră? {fields.location == null ? '(Selectați o localitate mai întâi.)' : ''}</InputLabel>
+                    <Select labelId='hs-label' id="hs" defaultValue={fields.hs ? fields.hs : ''} label="La ce liceu învață copilul dumneavoastră?" onChange={(e) => handleChange(e, "hs")}>
                         {(fields.location != null && Object.keys(localization).includes(fields.location)) && localization[fields.location].map((hs, i) => {
                             return <MenuItem key={i} value={hs}>{hs}</MenuItem>
                         })}
@@ -84,8 +84,8 @@ export default function PersonalInfo({ formValues, nextStep }) {
 
             <Grid item xs={12} sm={6}>
                 <FormControl required fullWidth>
-                    <InputLabel id="class-label">În ce clasă ești?</InputLabel>
-                    <Select labelId='class-label' id="class" defaultValue={fields.class ? fields.class : ''} label="În ce clasă ești?" onChange={(e) => handleChange(e, "class")}>
+                    <InputLabel id="class-label">În ce clasă este copilul dumneavoastră?</InputLabel>
+                    <Select labelId='class-label' id="class" defaultValue={fields.class ? fields.class : ''} label="În ce clasă este copilul dumneavoastră?" onChange={(e) => handleChange(e, "class")}>
                         <MenuItem value="9">Clasa a 9-a</MenuItem>
                         <MenuItem value="10">Clasa a 10-a</MenuItem>
                         <MenuItem value="11">Clasa a 11-a</MenuItem>
@@ -96,14 +96,14 @@ export default function PersonalInfo({ formValues, nextStep }) {
             </Grid>
 
             <Grid item xs={12} sm={6}>
-                <TextField required id="letter" fullWidth defaultValue={fields.letter} label="Care este litera clasei tale?" inputProps={{ maxLength: 5 }} onChange={handleChange} />
+                <TextField required id="letter" fullWidth defaultValue={fields.letter} label="Care este litera clasei copilului dumneavoastră?" inputProps={{ maxLength: 5 }} onChange={handleChange} />
                 <FormHelperText error>{errors.letter}</FormHelperText>
             </Grid>
 
             <Grid item xs={12} sm={12}>
                 <FormControl required fullWidth>
-                    <InputLabel id="eth-label">Care este etnia ta?</InputLabel>
-                    <Select labelId='eth-label' id="eth" defaultValue={fields.eth ? fields.eth : ''} label="Care este etnia ta?" onChange={(e) => handleChange(e, "eth")}>
+                    <InputLabel id="eth-label">Care este etnia dumneavoastră?</InputLabel>
+                    <Select labelId='eth-label' id="eth" defaultValue={fields.eth ? fields.eth : ''} label="Care este etnia dumneavoastră?" onChange={(e) => handleChange(e, "eth")}>
                         <MenuItem value="RO">Român</MenuItem>
                         <MenuItem value="MGH">Maghiar</MenuItem>
                         <MenuItem value="ROM">Rom</MenuItem>
@@ -116,7 +116,7 @@ export default function PersonalInfo({ formValues, nextStep }) {
 
             {fields.eth == "ALTA" && (
                 <Grid item xs={12} sm={12}>
-                    <TextField required id="eth-full" defaultValue={fields.eth_full} fullWidth label="Scrie etnia ta" type="text" onChange={handleChange} />
+                    <TextField required id="eth_full" defaultValue={fields.eth_full} fullWidth label="Scrieți etnia dumneavoastră" type="text" onChange={handleChange} />
                     <FormHelperText error>{errors.eth_full}</FormHelperText>
                 </Grid>
             )}
