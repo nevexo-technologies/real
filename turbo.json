@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["NODE_ENV"],
+  "globalEnv": ["DATABASE_URL", "NODE_ENV"],
   "pipeline": {
     "build": {
       "dependsOn": [
