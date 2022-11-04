@@ -1,41 +1,32 @@
 {
-  "name": "estereal-infrastructure",
+  "name": "real",
+  "version": "0.0.0",
   "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "bot": "node src/bots/ministrul-educational-alternativ/index.js",
-    "update-bot": "node src/bots/ministrul-educational-alternativ/deploy-commands.js"
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "prisma": {
+    "schema": "packages/database/prisma/schema.prisma"
   },
-  "dependencies": {
-    "@discordjs/builders": "^0.12.0",
-    "@discordjs/rest": "^0.3.0",
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
-    "@mui/material": "^5.4.1",
-    "bcryptjs": "^2.4.3",
-    "discord-api-types": "^0.29.0",
-    "discord.js": "^13.6.0",
-    "dotenv": "^16.0.0",
-    "js-cookie": "^3.0.1",
-    "jsonwebtoken": "^8.5.1",
-    "mysql2": "^2.3.3",
-    "next": "^12.1.0",
-    "next-connect": "^0.12.2",
-    "nprogress": "^0.2.0",
-    "pg": "^8.7.3",
-    "pg-hstore": "^2.3.4",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-hook-form": "^7.27.0",
-    "sequelize": "^6.17.0",
-    "sequelize-cli": "^6.4.1",
-    "yup": "^0.32.11"
+  "scripts": {
+    "build": "turbo run build",
+    "db:migrate:deploy": "turbo run db:migrate:deploy",
+    "db:push": "turbo run db:push",
+    "db:generate": "turbo run db:generate",
+    "bot:update": "turbo run bot:update",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "eslint": "8.9.0",
-    "eslint-config-next": "12.0.10"
-  }
+    "prettier": "latest",
+    "turbo": "latest",
+    "dotenv": "^16.0.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {},
+  "packageManager": "pnpm@7.14.2"
 }
