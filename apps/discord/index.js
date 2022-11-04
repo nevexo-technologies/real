@@ -1,10 +1,10 @@
 const fs = require('node:fs');
 const path = require('path');
+require("dotenv").config();
+
 const { Client, GatewayIntentBits, Collection } = require('discord.js');
-const dotenv = require('dotenv');
 const { prisma } = require("@real/database");
 
-dotenv.config();
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
 
