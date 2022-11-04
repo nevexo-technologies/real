@@ -2,7 +2,7 @@ const fs = require('node:fs');
 const path = require('path');
 const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const dotenv = require('dotenv');
-const { prisma } = require('@real/database');
+const { prisma } = require("@real/database");
 
 dotenv.config();
 

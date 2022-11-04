@@ -12,21 +12,15 @@
   "scripts": {
     "build": "turbo run build",
     "db:migrate:deploy": "turbo run db:migrate:deploy",
-    "db:push": "turbo run db:push", 
+    "db:push": "turbo run db:push",
     "db:generate": "turbo run db:generate",
     "bot:update": "turbo run bot:update",
     "dev": "turbo run dev --parallel",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "lint": "turbo run lint"
   },
   "devDependencies": {
-    "prettier": "latest",
+    "tsx": "^3.7.1",
     "turbo": "latest",
-    "dotenv": "^16.0.1"
-  },
-  "engines": {
-    "node": ">=14.0.0"
-  },
-  "dependencies": {},
-  "packageManager": "pnpm@7.14.2"
+    "dotenv": "^16.0.0"
+  }
 }

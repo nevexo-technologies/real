@@ -1,5 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalEnv": ["NODE_ENV"],
   "pipeline": {
     "build": {
       "dependsOn": [
@@ -11,9 +12,6 @@
       ]
     },
     "db:migrate:deploy": {
-      "outputs": []
-    },
-    "db:migrate:dev": {
       "outputs": []
     },
     "db:push": {
