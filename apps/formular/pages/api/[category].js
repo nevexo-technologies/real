@@ -61,10 +61,11 @@ export default async function handler(req, res) {
     }
 
     try {
+        const processedFields = schema.cast(fields);
         if (category === 'elevi') {
             const insertion = await prisma.elev.create({
                 data: {
-                    ...fields
+                    ...processedFields,
                 }
             });
 
@@ -76,7 +77,7 @@ export default async function handler(req, res) {
         if (category === 'profesori') {
             const insertion = await prisma.profesor.create({
                 data: {
-                    ...fields
+                    ...processedFields
                 }
             });
 
@@ -88,7 +89,7 @@ export default async function handler(req, res) {
         if (category === 'parinti') {
             const insertion = await prisma.parinte.create({
                 data: {
-                    ...fields
+                    ...processedFields
                 }
             });
 

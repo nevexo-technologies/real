@@ -11,7 +11,7 @@ export default async function getValidationSchema(baseUrl = '') {
 
     return yup.object({
         email: yup.string().email().required("Te rugăm să introduci un email."),
-        age: yup.number().integer().min(26, "Vârsta minimă este de 26 de ani.").max(90, "Vârsta maxima este de 26 de ani.").required("Te rugăm să îți introduci vârsta."),
+        age: yup.number().integer().min(26, "Vârsta minimă este de 26 de ani.").max(90, "Vârsta maxima este de 90 de ani.").required("Te rugăm să îți introduci vârsta."),
         location: yup.string().oneOf(locationOptions, "Locația selectată nu există în baza de date.").required("Te rugăm să îți alegi localitatea."),
         hs: yup.string().oneOf(hsOptions, "Liceul selectat nu există în baza de date.").required("Te rugăm să îți alegi unitatea de învățământ.").typeError("Te rugăm să îți alegi unitatea de învățământ."),
         class: yup.number().integer().min(9).max(12).required("Te rugăm să îți alegi clasa."),

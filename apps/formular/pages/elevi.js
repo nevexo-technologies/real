@@ -10,6 +10,8 @@ import Community from '../components/Students/Community';
 import FormSubmit from '../components/Students/FormSubmit';
 import Layout from '../components/Layout';
 
+import Head from "next/head";
+
 export default function StudentForm() {
     const router = useRouter();
     const { ref } = router.query;
@@ -32,43 +34,48 @@ export default function StudentForm() {
     }
 
     return (
-        <Layout>
-            <Container maxWidth="sm">
-                <Container variant="floating" sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
-                    <Stepper activeStep={formStep} alternativeLabel>
-                        {stepsName.map((value, idx) => {
-                            return (
-                                <Step key={idx}>
-                                    <StepLabel>{value}</StepLabel>
-                                </Step>
-                            )
-                        })}
-                    </Stepper>
-                </Container>
-                <Container variant="floating">
-                    <Box textAlign="left" sx={{ mb: 2, display: { xs: 'block', sm: 'block', md: 'none' } }}>
-                        <Chip label={formStep + 1} color="primary" />&nbsp;<Typography variant='overline'>{stepsName[formStep]}</Typography>
-                    </Box>
+        <>
+            <Head>
+                <title>Formular elevi | Registrul Educațional Alternativ</title>
+            </Head>
+            <Layout>
+                <Container maxWidth="sm">
+                    <Container variant="floating" sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
+                        <Stepper activeStep={formStep} alternativeLabel>
+                            {stepsName.map((value, idx) => {
+                                return (
+                                    <Step key={idx}>
+                                        <StepLabel>{value}</StepLabel>
+                                    </Step>
+                                )
+                            })}
+                        </Stepper>
+                    </Container>
+                    <Container variant="floating">
+                        <Box textAlign="left" sx={{ mb: 2, display: { xs: 'block', sm: 'block', md: 'none' } }}>
+                            <Chip label={formStep + 1} color="primary" />&nbsp;<Typography variant='overline'>{stepsName[formStep]}</Typography>
+                        </Box>
 
-                    {formStep == 0 && (
-                        <PersonalInfo formValues={formValues} nextStep={nextStep} />
-                    )}
-                    {formStep == 1 && (
-                        <Opportunities formValues={formValues} nextStep={nextStep} previousStep={previousStep} />
-                    )}
-                    {formStep == 2 && (
-                        <Resources formValues={formValues} nextStep={nextStep} previousStep={previousStep} />
-                    )}
-                    {formStep == 3 && (
-                        <Community formValues={formValues} nextStep={nextStep} previousStep={previousStep} />
-                    )}
-                    {formStep == 4 && (
-                        <FormSubmit formValues={formValues} nextStep={nextStep} previousStep={previousStep} />
-                    )}
+                        {formStep == 0 && (
+                            <PersonalInfo formValues={formValues} nextStep={nextStep} />
+                        )}
+                        {formStep == 1 && (
+                            <Opportunities formValues={formValues} nextStep={nextStep} previousStep={previousStep} />
+                        )}
+                        {formStep == 2 && (
+                            <Resources formValues={formValues} nextStep={nextStep} previousStep={previousStep} />
+                        )}
+                        {formStep == 3 && (
+                            <Community formValues={formValues} nextStep={nextStep} previousStep={previousStep} />
+                        )}
+                        {formStep == 4 && (
+                            <FormSubmit formValues={formValues} nextStep={nextStep} previousStep={previousStep} />
+                        )}
 
+                    </Container>
+                    <Typography sx={{ color: 'white' }} variant="overline">Creat cu ❤️ de Registrul Educațional Alternativ</Typography>
                 </Container>
-                <Typography sx={{ color: 'white' }} variant="overline">Creat cu ❤️ de Registrul Educațional Alternativ</Typography>
-            </Container>
-        </Layout>
+            </Layout>
+        </>
     )
 }
