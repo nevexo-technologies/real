@@ -28,7 +28,7 @@ export default function PersonalInfo({ formValues, nextStep }) {
         e.preventDefault();
 
         let validationSchema = await getValidationSchema();
-        let schema = validationSchema.pick(['email', 'age', 'location', 'hs', 'class', 'letter', 'eth', 'eth_full'])
+        let schema = validationSchema.pick(['email', 'age', 'location', 'hs', 'class', 'letter', 'eth', 'ethFull'])
 
         if (schema.isValidSync(fields, { abortEarly: false })) {
             nextStep(fields);
@@ -116,8 +116,8 @@ export default function PersonalInfo({ formValues, nextStep }) {
 
             {fields.eth == "ALTA" && (
                 <Grid item xs={12} sm={12}>
-                    <TextField required id="eth_full" defaultValue={fields.eth_full} fullWidth label="Scrie etnia ta" type="text" onChange={handleChange} />
-                    <FormHelperText error>{errors.eth_full}</FormHelperText>
+                    <TextField required id="ethFull" defaultValue={fields.ethFull} fullWidth label="Scrie etnia ta" type="text" onChange={handleChange} />
+                    <FormHelperText error>{errors.ethFull}</FormHelperText>
                 </Grid>
             )}
         </FormWrapper>

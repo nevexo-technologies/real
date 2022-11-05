@@ -17,7 +17,7 @@ export default async function getValidationSchema(baseUrl = '') {
         class: yup.number().integer().min(9).max(12).required("Te rugăm să îți alegi clasa."),
         letter: yup.string().required("Te rugăm să îți introduci litera clasei."),
         eth: yup.string().required("Te rugăm să alegi o valoare."),
-        eth_full: yup.string().when("eth", {
+        ethFull: yup.string().when("eth", {
             is: "ALTA",
             then: (schema) => schema.required("Vă rugăm să introduceți un răspuns.").typeError("Vă rugăm să introduceți un răspuns."),
             otherwise: (schema) => schema.nullable()

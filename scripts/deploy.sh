@@ -4,6 +4,18 @@ cd $repo_root
 
 source .env
 
+if ! command -v yarn help &> /dev/null
+then
+    echo "Please install yarn"
+    exit
+fi
+
+if ! command -v pm2 list &> /dev/null
+then
+    echo "Please install pm2"
+    exit
+fi
+
 # Create backup directory
 backup_date=$(date +%Y%m%d)
 backup_dir=`mkdir -p backups/$backup_date`

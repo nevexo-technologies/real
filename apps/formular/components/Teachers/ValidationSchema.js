@@ -15,7 +15,7 @@ export default async function getValidationSchema(baseUrl = '') {
         location: yup.string().oneOf(locationOptions, "Locația selectată nu există în baza de date.").required("Vă rugăm să vă  localitatea."),
         hs: yup.string().oneOf(hsOptions, "Liceul selectat nu există în baza de date.").required("Vă rugăm să vă alegeți unitatea de învățământ.").typeError("Vă rugăm să vă alegeți unitatea de învățământ."),
         eth: yup.string().required("Vă rugăm să alegeți o valoare."),
-        eth_full: yup.string().when("eth", {
+        ethFull: yup.string().when("eth", {
             is: "ALTA",
             then: (schema) => schema.required("Vă rugăm să introduceți un răspuns.").typeError("Vă rugăm să introduceți un răspuns."),
             otherwise: (schema) => schema.nullable()

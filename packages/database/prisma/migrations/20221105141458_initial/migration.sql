@@ -3,8 +3,8 @@ CREATE TABLE `Ambasador` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `discordName` VARCHAR(255) NULL,
     `discordId` VARCHAR(255) NULL,
-    `createdAt` DATETIME(0) NOT NULL,
-    `updatedAt` DATETIME(0) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -20,7 +20,7 @@ CREATE TABLE `Elev` (
     `class` INTEGER NOT NULL,
     `letter` VARCHAR(255) NOT NULL,
     `eth` VARCHAR(255) NOT NULL,
-    `eth_full` VARCHAR(255) NULL,
+    `ethFull` VARCHAR(255) NULL,
     `e10` INTEGER NOT NULL,
     `e11` INTEGER NOT NULL,
     `e12` INTEGER NOT NULL,
@@ -59,9 +59,9 @@ CREATE TABLE `Elev` (
     `e41` VARCHAR(255) NOT NULL,
     `e41b` VARCHAR(255) NULL,
     `e43` INTEGER NOT NULL,
-    `created_at` DATETIME(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-    `completition_time` INTEGER NOT NULL,
-    `updated_at` DATETIME(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+    `completitionTime` INTEGER NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     UNIQUE INDEX `Elev_email_key`(`email`),
     PRIMARY KEY (`id`)
@@ -78,7 +78,7 @@ CREATE TABLE `Parinte` (
     `class` INTEGER NOT NULL,
     `letter` VARCHAR(255) NOT NULL,
     `eth` VARCHAR(255) NOT NULL,
-    `eth_full` VARCHAR(255) NULL,
+    `ethFull` VARCHAR(255) NULL,
     `t10` INTEGER NOT NULL,
     `t11` INTEGER NOT NULL,
     `t12` INTEGER NOT NULL,
@@ -93,9 +93,9 @@ CREATE TABLE `Parinte` (
     `t19b` VARCHAR(255) NULL,
     `t20` VARCHAR(255) NOT NULL,
     `t20b` VARCHAR(255) NULL,
-    `created_at` DATETIME(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-    `completition_time` INTEGER NOT NULL,
-    `updated_at` DATETIME(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+    `completitionTime` INTEGER NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     UNIQUE INDEX `Parinte_email_key`(`email`),
     PRIMARY KEY (`id`)
@@ -110,7 +110,7 @@ CREATE TABLE `Profesor` (
     `location` VARCHAR(255) NOT NULL,
     `hs` VARCHAR(255) NOT NULL,
     `eth` VARCHAR(255) NOT NULL,
-    `eth_full` VARCHAR(255) NULL,
+    `ethFull` VARCHAR(255) NULL,
     `p10` INTEGER NOT NULL,
     `p11` INTEGER NOT NULL,
     `p12` INTEGER NOT NULL,
@@ -129,9 +129,9 @@ CREATE TABLE `Profesor` (
     `p25` INTEGER NOT NULL,
     `p26` VARCHAR(255) NOT NULL,
     `p26b` VARCHAR(255) NULL,
-    `created_at` DATETIME(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-    `completition_time` INTEGER NOT NULL,
-    `updated_at` DATETIME(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+    `completitionTime` INTEGER NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
     UNIQUE INDEX `Profesor_email_key`(`email`),
     PRIMARY KEY (`id`)

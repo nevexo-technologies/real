@@ -25,7 +25,7 @@ model Elev {
   class             Int
   letter            String   @db.VarChar(255)
   eth               String   @db.VarChar(255)
-  eth_full          String?  @db.VarChar(255)
+  ethFull          String?  @db.VarChar(255)
   e10               Int
   e11               Int
   e12               Int
@@ -79,7 +79,7 @@ model Parinte {
   class             Int
   letter            String   @db.VarChar(255)
   eth               String   @db.VarChar(255)
-  eth_full          String?  @db.VarChar(255)
+  ethFull          String?  @db.VarChar(255)
   t10               Int
   t11               Int
   t12               Int
@@ -107,7 +107,7 @@ model Profesor {
   location          String   @db.VarChar(255)
   hs                String   @db.VarChar(255)
   eth               String   @db.VarChar(255)
-  eth_full          String?  @db.VarChar(255)
+  ethFull          String?  @db.VarChar(255)
   p10               Int
   p11               Int
   p12               Int
