@@ -18,7 +18,6 @@ export default function FormSubmit({ formValues, nextStep, previousStep }) {
             body: JSON.stringify(fields),
         }).then(async res => {
             const data = await res.json();
-
             setFormLoading(false);
 
             if (!res.ok)

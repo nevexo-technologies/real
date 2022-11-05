@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { Step, StepLabel, Stepper, Typography, Box, Container, Chip } from '@mui/material';

@@ -6,24 +6,34 @@ import getValidationSchema from "./ValidationSchema";
 export default function FormSubmit({ formValues, nextStep, previousStep, startTime }) {
     const [fields, setFields] = useState(formValues);
     const [errors, setErrors] = useState({});
-    const [isFormValid, setFormValid] = useState(-1);
+    const [serverErrors, setServerErrors] = useState();
+    const [formLoading, setFormLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`/api/profesori`, {
+        fetch(`/api/elevi`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(fields),
         }).then(async res => {
-            if (res.status === 200) {
-                setFormValid(1);
-                console.log(JSON.stringify(res));
-            } else {
-                setFormValid(0);
-                const data = await res.json();
-                setErrors(data.errors);
+            const data = await res.json();
+            setFormLoading(false);
+
+            if (!res.ok)
+                return Promise.reject(data)
+
+            setServerErrors(false);
+            console.log(JSON.stringify(data));
+            return data;
+        }).catch(err => {
+            setServerErrors(err.message);
+
+            if (err.errors) {
+                setErrors(err.errors);
             }
+
+            return err;
         });
     }, []);
 
@@ -62,9 +72,11 @@ export default function FormSubmit({ formValues, nextStep, previousStep, startTi
         previousStep();
     }
 
+    if (formLoading) return <LinearProgress />
+
     return (
         <>
-            {isFormValid == 1 && (
+            {!serverErrors ? (
                 <FormWrapper onSubmit={handleSubmit} onPrevious={handlePrevious}>
                     <Grid item xs={12} sm={12}>
                         <strong>
@@ -131,20 +143,17 @@ export default function FormSubmit({ formValues, nextStep, previousStep, startTi
                     </Grid>
 
                 </FormWrapper>
-            )}
-            {isFormValid == 0 && (
+            ) : (
                 <FormWrapper onSubmit={handleSubmit} onPrevious={handlePrevious}>
                     <Grid item xs={12} sm={12}>
                         <strong>
                             <h1 style={{ margin: 0 }}>Ne pare rău! &#128577;</h1>
-                            <p style={{ margin: 0 }}>Din păcate, informațiile trimise de dvs. nu au trecut testele noastre anti-spam.</p>
+                            <p style={{ margin: 0 }}>Din păcate, informațiile trimise de dvs. nu au fost trimise cu succes.</p>
                         </strong>
+                        <small><i><b>Mesaj eroare</b>: {serverErrors}</i></small><br /><br />
                         <small style={{ fontWeight: 300 }}>Dacă doriți, puteți reîncerca.</small>
                     </Grid>
                 </FormWrapper>
-            )}
-            {isFormValid == -1 && (
-                <LinearProgress />
             )}
         </>
     )

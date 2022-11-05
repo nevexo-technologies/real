@@ -2,6 +2,7 @@ import studentSchema from '@components/Students/ValidationSchema';
 import parentsSchema from '@components/Parents/ValidationSchema';
 import teacherSchema from '@components/Teachers/ValidationSchema';
 import { prisma } from "@real/database";
+import { isArray } from 'util';
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -62,6 +63,13 @@ export default async function handler(req, res) {
 
     try {
         const processedFields = schema.cast(fields);
+
+        Object.keys(processedFields).forEach(field => {
+            if(Array.isArray(processedFields[field])) {
+                processedFields[field] = processedFields[field].join(',');
+            }
+        });
+
         if (category === 'elevi') {
             const insertion = await prisma.elev.create({
                 data: {
@@ -69,7 +77,6 @@ export default async function handler(req, res) {
                 }
             });
 
-            console.log("=====ELEVI======")
             res.status(200).json({ message: `Response created. ID: ${insertion.id}` });
             return;
         }
@@ -81,7 +88,6 @@ export default async function handler(req, res) {
                 }
             });
 
-            console.log("=====PROFESORI======")
             res.status(200).json({ message: `Response created. ID: ${insertion.id}` });
             return;
         }
@@ -93,18 +99,15 @@ export default async function handler(req, res) {
                 }
             });
 
-            console.log("=====PARINTI======")
             res.status(200).json({ message: `Response created. ID: ${insertion.id}` });
             return;
         }
     } catch (err) {
-        console.log(err);
         if (err.code && err.code === 'P2002') {
             res.status(409).json({ message: 'Email already submitted a response.' })
             return;
         }
 
-        console.log("=================")
         res.status(500).json({ message: 'Internal server error.' })
         return;
     }
