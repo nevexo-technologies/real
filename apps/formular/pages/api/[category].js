@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     const forms = {
         'elevi': {
             schema: studentSchema,
-            timeLimit: 60
+            timeLimit: 60 // in seconds
         },
         'parinti': {
             schema: parentsSchema,
@@ -35,7 +35,8 @@ export default async function handler(req, res) {
 
     const endTime = Date.now();
     const finishTimeSeconds = Math.floor((endTime - fields.startTime) / 1000);
-    fields.completition_time = finishTimeSeconds;
+    fields.completitionTime = finishTimeSeconds;
+    delete fields.startTime;    
 
     if (!schema.isValidSync(fields, { abortEarly: false })) {
         var validationErrors = [];
@@ -66,6 +67,10 @@ export default async function handler(req, res) {
                     ...fields
                 }
             });
+
+            console.log("=====ELEVI======")
+            res.status(200).json({ message: `Response created. ID: ${insertion.id}` });
+            return;
         }
 
         if (category === 'profesori') {
@@ -74,24 +79,32 @@ export default async function handler(req, res) {
                     ...fields
                 }
             });
+
+            console.log("=====PROFESORI======")
+            res.status(200).json({ message: `Response created. ID: ${insertion.id}` });
+            return;
         }
 
-        if (category === 'parinte') {
+        if (category === 'parinti') {
             const insertion = await prisma.parinte.create({
                 data: {
                     ...fields
                 }
             });
+
+            console.log("=====PARINTI======")
+            res.status(200).json({ message: `Response created. ID: ${insertion.id}` });
+            return;
+        }
+    } catch (err) {
+        console.log(err);
+        if (err.code && err.code === 'P2002') {
+            res.status(409).json({ message: 'Email already submitted a response.' })
+            return;
         }
 
-        res.status(200).json({ message: `Response created. ID: ${insertion.id}` });
+        console.log("=================")
+        res.status(500).json({ message: 'Internal server error.' })
         return;
-    } catch (err) {
-        if (err instanceof Prisma.PrismaClientKnownRequestError) {
-            if (err.code === 'P2002') {
-                res.status(409).json({ message: 'Email already submitted a response.' })
-                return;
-            }
-        }
     }
 }

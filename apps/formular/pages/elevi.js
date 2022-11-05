@@ -63,7 +63,7 @@ export default function StudentForm() {
                         <Community formValues={formValues} nextStep={nextStep} previousStep={previousStep} />
                     )}
                     {formStep == 4 && (
-                        <FormSubmit formValues={formValues} nextStep={nextStep} previousStep={previousStep} startTime={startTime} />
+                        <FormSubmit formValues={formValues} nextStep={nextStep} previousStep={previousStep} />
                     )}
 
                 </Container>

@@ -11,8 +11,8 @@ model Ambasador {
   id          Int      @id @default(autoincrement())
   discordName String?  @db.VarChar(255)
   discordId   String?  @db.VarChar(255)
-  createdAt   DateTime @db.DateTime(0)
-  updatedAt   DateTime @db.DateTime(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Elev {
@@ -64,9 +64,9 @@ model Elev {
   e41               String   @db.VarChar(255)
   e41b              String?  @db.VarChar(255)
   e43               Int
-  created_at        DateTime @default(now()) @db.DateTime(0)
-  completition_time Int
-  updated_at        DateTime @default(now()) @db.DateTime(0)
+  completitionTime Int
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
 model Parinte {
@@ -94,9 +94,9 @@ model Parinte {
   t19b              String?  @db.VarChar(255)
   t20               String   @db.VarChar(255)
   t20b              String?  @db.VarChar(255)
-  created_at        DateTime @default(now()) @db.DateTime(0)
-  completition_time Int
-  updated_at        DateTime @default(now()) @db.DateTime(0)
+  completitionTime Int
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
 model Profesor {
@@ -126,7 +126,7 @@ model Profesor {
   p25               Int
   p26               String   @db.VarChar(255)
   p26b              String?  @db.VarChar(255)
-  created_at        DateTime @default(now()) @db.DateTime(0)
-  completition_time Int
-  updated_at        DateTime @default(now()) @db.DateTime(0)
+  completitionTime Int
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
