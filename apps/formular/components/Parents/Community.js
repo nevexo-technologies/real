@@ -43,7 +43,8 @@ export default function Community({ formValues, nextStep, previousStep, setFormS
                 if (err.errors) {
                     setErrors(err.errors);
                 }
-
+                
+                nextStep(fields);
                 return err;
             });
         } else {
