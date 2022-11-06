@@ -1,0 +1,132 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Ambasador {
+  id          Int      @id @default(autoincrement())
+  discordName String?  @db.VarChar(255)
+  discordId   String?  @db.VarChar(255)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Elev {
+  id               Int      @id @default(autoincrement())
+  ref              String?  @db.VarChar(255)
+  email            String   @unique @db.VarChar(255)
+  age              Int
+  location         String   @db.VarChar(255)
+  hs               String   @db.VarChar(255)
+  class            Int
+  letter           String   @db.VarChar(255)
+  eth              String   @db.VarChar(255)
+  ethFull          String?  @db.VarChar(255)
+  e10              Int
+  e11              Int
+  e12              Int
+  e13              Int
+  e14              Int
+  e15              Int
+  e16              Int
+  e17              String?  @db.VarChar(255)
+  e18              Int
+  e19              String   @db.VarChar(255)
+  e20              Int
+  e21              String   @db.VarChar(255)
+  e22              Int
+  e23              Int
+  e24              Int
+  e24b             Int?
+  e25              Int
+  e25b             Int?
+  e26              Int
+  e27              Int
+  e28              Int
+  e29              Int
+  e30              Int
+  e31              Int
+  e32              Int
+  e33              String   @db.VarChar(255)
+  e34              Int
+  e35              Int
+  e36              Int
+  e37              Int
+  e38              String   @db.VarChar(255)
+  e38b             String?  @db.VarChar(255)
+  e39              Int
+  e39b             String?  @db.VarChar(255)
+  e40              Int
+  e41              String   @db.VarChar(255)
+  e41b             String?  @db.VarChar(255)
+  e43              Int
+  completitionTime Int
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Parinte {
+  id               Int      @id @default(autoincrement())
+  ref              String?  @db.VarChar(255)
+  email            String   @unique @db.VarChar(255)
+  age              Int
+  location         String   @db.VarChar(255)
+  hs               String   @db.VarChar(255)
+  class            Int
+  letter           String   @db.VarChar(255)
+  eth              String   @db.VarChar(255)
+  ethFull          String?  @db.VarChar(255)
+  t10              Int
+  t11              Int
+  t12              Int
+  t13              Int
+  t13b             Int?
+  t14              Int
+  t15              Int
+  t16              Int
+  t17              Int
+  t18              Int
+  t19              Int
+  t19b             String?  @db.VarChar(255)
+  t20              String   @db.VarChar(255)
+  t20b             String?  @db.VarChar(255)
+  completitionTime Int
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Profesor {
+  id               Int      @id @default(autoincrement())
+  ref              String?  @db.VarChar(255)
+  email            String   @unique @db.VarChar(255)
+  age              Int
+  location         String   @db.VarChar(255)
+  hs               String   @db.VarChar(255)
+  eth              String   @db.VarChar(255)
+  ethFull          String?  @db.VarChar(255)
+  p10              Int
+  p11              Int
+  p12              Int
+  p13              Int
+  p14              Int
+  p15              Int
+  p16              Int
+  p17              Int
+  p18              Int
+  p19              Int
+  p20              Int
+  p21              String   @db.VarChar(255)
+  p22              Int
+  p23              Int
+  p24              Int
+  p25              Int
+  p26              String   @db.VarChar(255)
+  p26b             String?  @db.VarChar(255)
+  completitionTime Int
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
