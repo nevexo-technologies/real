@@ -160,10 +160,6 @@ export default function Community({ formValues, nextStep, previousStep }) {
                             value: 1,
                             label: "Niciodată"
                         },
-                        {
-                            value: -1,
-                            label: "Nu știu / Nu răspund"
-                        },
                     ]}
                 />
             </Grid>
