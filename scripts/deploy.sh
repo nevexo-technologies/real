@@ -38,7 +38,7 @@ yarn install
 yarn run db:migrate:deploy
 
 # Build assets
-yarn run buld
+yarn run build
 
 # Run process manager
 pm2 reload ecosystem.config.js
