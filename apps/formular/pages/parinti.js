@@ -20,6 +20,7 @@ export default function StudentForm() {
     const [formStep, setFormStep] = useState(0);
     const stepsName = ['Despre dvs.', 'Oportunități', 'Resurse', 'Comunitate'];
     const [formValues, setFormValues] = useState({ ref: ref, startTime: startTime });
+    const [formState, setFormState] = useState({});
 
     const nextStep = (values) => {
         setFormValues(values);
@@ -35,7 +36,7 @@ export default function StudentForm() {
     return (
         <>
             <Head>
-                <title>Formulare | Registrul Educațional Alternativ</title>
+                <title>Formular parinti | Registrul Educațional Alternativ</title>
             </Head>
             <Layout>
                 <Container maxWidth="sm">
@@ -65,10 +66,10 @@ export default function StudentForm() {
                             <Resources formValues={formValues} nextStep={nextStep} previousStep={previousStep} />
                         )}
                         {formStep == 3 && (
-                            <Community formValues={formValues} nextStep={nextStep} previousStep={previousStep} />
+                            <Community formValues={formValues} nextStep={nextStep} previousStep={previousStep} setFormState={setFormState} />
                         )}
                         {formStep == 4 && (
-                            <FormSubmit formValues={formValues} nextStep={nextStep} previousStep={previousStep} startTime={startTime} />
+                            <FormSubmit formValues={formValues} nextStep={nextStep} previousStep={previousStep} formState={formState} />
                         )}
 
                     </Container>

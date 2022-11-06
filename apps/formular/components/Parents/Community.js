@@ -5,7 +5,7 @@ import RadioGroupResponsive from '../RadioGroupResponsive';
 import CheckboxGroup from '../CheckboxGroup';
 import getValidationSchema from "./ValidationSchema";
 
-export default function Community({ formValues, nextStep, previousStep }) {
+export default function Community({ formValues, nextStep, previousStep, setFormState }) {
     const [fields, setFields] = useState(formValues);
     const [errors, setErrors] = useState({});
 
@@ -20,7 +20,32 @@ export default function Community({ formValues, nextStep, previousStep }) {
         let schema = validationSchema.pick(["t16", "t17", "t18", "t19", "t19b", "t20", "t20b"]);
 
         if (schema.isValidSync(fields, { abortEarly: false })) {
-            nextStep(fields);
+            setFormState({ loading: true, error: false, message: "Loading..." });
+            await fetch(`/api/parinti`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(fields),
+            }).then(async res => {
+                const data = await res.json();
+
+
+                if (!res.ok)
+                    return Promise.reject(data)
+
+                setFormState({ loading: false, error: false, message: data.message });
+                nextStep(fields);
+                return data;
+            }).catch(err => {
+                setFormState({ loading: false, error: true, message: err.message });
+
+                if (err.errors) {
+                    setErrors(err.errors);
+                }
+
+                return err;
+            });
         } else {
             schema.validate(fields, { abortEarly: false }).catch(err => {
                 let errors = err.inner.reduce((acc, error) => {

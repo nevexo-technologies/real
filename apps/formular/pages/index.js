@@ -26,7 +26,7 @@ export default function REALForm() {
               <Container variant="floating">
                 <h2>Elevi</h2>
                 <Link href={`/elevi${ref ? '?ref=' + ref : ''}`}>
-                  <Button variant="contained" type="submit">Începe formularul</Button>
+                  <Button variant="contained">Începe formularul</Button>
                 </Link>
               </Container>
             </Grid>
@@ -34,7 +34,7 @@ export default function REALForm() {
               <Container variant="floating">
                 <h2>Profesori</h2>
                 <Link href={`/profesori${ref ? '?ref=' + ref : ''}`}>
-                  <Button variant="contained" type="submit">Începe formularul</Button>
+                  <Button variant="contained">Începe formularul</Button>
                 </Link>
               </Container>
             </Grid>
@@ -42,7 +42,7 @@ export default function REALForm() {
               <Container variant="floating">
                 <h2>Părinți</h2>
                 <Link href={`/parinti${ref ? '?ref=' + ref : ''}`}>
-                  <Button variant="contained" type="submit">Începe formularul</Button>
+                  <Button variant="contained">Începe formularul</Button>
                 </Link>
               </Container>
             </Grid>

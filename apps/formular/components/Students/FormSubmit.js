@@ -3,39 +3,9 @@ import { useEffect, useState } from 'react';
 import FormWrapper from '../FormWrapper';
 import getValidationSchema from "./ValidationSchema";
 
-export default function FormSubmit({ formValues, nextStep, previousStep }) {
+export default function FormSubmit({ formValues, nextStep, previousStep, formState }) {
     const [fields, setFields] = useState(formValues);
     const [errors, setErrors] = useState({});
-    const [serverErrors, setServerErrors] = useState();
-    const [formLoading, setFormLoading] = useState(true);
-
-    useEffect(() => {
-        fetch(`/api/elevi`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(fields),
-        }).then(async res => {
-            const data = await res.json();
-            setFormLoading(false);
-
-            if (!res.ok)
-                return Promise.reject(data)
-
-            setServerErrors(false);
-            console.log(JSON.stringify(data));
-            return data;
-        }).catch(err => {
-            setServerErrors(err.message);
-
-            if (err.errors) {
-                setErrors(err.errors);
-            }
-
-            return err;
-        });
-    }, []);
 
     const handleChange = (event, selectId) => {
         if (selectId) setFields((values) => ({ ...values, [selectId]: event.target.value }))
@@ -72,11 +42,11 @@ export default function FormSubmit({ formValues, nextStep, previousStep }) {
         previousStep();
     }
 
-    if (formLoading) return <LinearProgress />
+    if (!formState || formState.loading) return (<FormWrapper onSubmit={handleSubmit} onPrevious={handlePrevious}><LinearProgress /></FormWrapper>)
 
     return (
         <>
-            {!serverErrors ? (
+            {!formState.error ? (
                 <FormWrapper onSubmit={handleSubmit} onPrevious={handlePrevious}>
                     <Grid item xs={12} sm={12}>
                         <strong>
@@ -134,7 +104,7 @@ export default function FormSubmit({ formValues, nextStep, previousStep }) {
                             <h1 style={{ margin: 0 }}>Ne pare rău! &#128577;</h1>
                             <p style={{ margin: 0 }}>Din păcate, informațiile trimise de tine nu au fost trimise cu succes.</p>
                         </strong>
-                        <small><i><b>Mesaj eroare</b>: {serverErrors}</i></small><br /><br />
+                        <small><i><b>Mesaj eroare</b>: {formState.message}</i></small><br /><br />
                         <small style={{ fontWeight: 300 }}>Daca dorești, poți reîncerca.</small>
                         
                     </Grid>
