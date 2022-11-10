@@ -5,6 +5,7 @@ import getValidationSchema from "./ValidationSchema";
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/FacebookRounded';
 import WebIcon from '@mui/icons-material/Language';
+import SocialLinks from '../SocialLinks';
 
 export default function FormSubmit({ formValues, nextStep, previousStep, formState }) {
     const [fields, setFields] = useState(formValues);
@@ -58,18 +59,7 @@ export default function FormSubmit({ formValues, nextStep, previousStep, formSta
                         </strong>
                         <small style={{ fontWeight: 300 }}>Puteți închide această pagină în siguranță.</small>
                     </Grid>
-                    <Grid item xs={12} sm={12}>
-                        <p>Urmarește-ne pe:</p> 
-                        <Link href="https://www.instagram.com/estereal.ro" >
-                            <InstagramIcon sx={{mr:1}}/>
-                        </Link>
-                        <Link href="http://fb.com/registruleducationalalternativ">
-                            <FacebookIcon sx={{mx:1}}/>
-                        </Link>
-                        <Link href="https://estereal.ro">
-                            <WebIcon sx={{mx:1}}/>
-                        </Link>
-                    </Grid>
+                    <SocialLinks />
                     {/* <Grid item xs={12} sm={12}>
                         <Typography id={`r1-label`}>Ce recomandări ați oferi elevilor din liceul în care predați?</Typography>
                         <FormHelperText error>{errors.r1}</FormHelperText>
