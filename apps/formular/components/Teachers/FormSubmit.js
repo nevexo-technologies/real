@@ -1,7 +1,10 @@
-import { Box, Grid, Typography, MenuItem, Select, TextField, FormHelperText, LinearProgress } from '@mui/material';
+import { Box, Grid, Typography, MenuItem, Select, TextField, FormHelperText, LinearProgress, Link } from '@mui/material';
 import { useEffect, useState } from 'react';
 import FormWrapper from '../FormWrapper';
 import getValidationSchema from "./ValidationSchema";
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/FacebookRounded';
+import WebIcon from '@mui/icons-material/Language';
 
 export default function FormSubmit({ formValues, nextStep, previousStep, formState }) {
     const [fields, setFields] = useState(formValues);
@@ -47,15 +50,27 @@ export default function FormSubmit({ formValues, nextStep, previousStep, formSta
     return (
         <>
             {!formState.error ? (
-                <FormWrapper onSubmit={handleSubmit} onPrevious={handlePrevious}>
+                <FormWrapper>
                     <Grid item xs={12} sm={12}>
                         <strong>
-                            <h1 style={{ margin: 0 }}>Multumim! ❤️</h1>
+                            <h1 style={{ margin: 0 }}>Mulțumim! ❤️</h1>
                             <p style={{ margin: 0 }}>Ați parcurs cu succes tot formularul!</p>
                         </strong>
-                        <small style={{ fontWeight: 300 }}>Daca doriți, mai puteți lăsa câteva recomandări comunității dvs.</small>
+                        <small style={{ fontWeight: 300 }}>Puteți închide această pagină în siguranță.</small>
                     </Grid>
                     <Grid item xs={12} sm={12}>
+                        <p>Urmarește-ne pe:</p> 
+                        <Link href="https://www.instagram.com/estereal.ro" >
+                            <InstagramIcon sx={{mr:1}}/>
+                        </Link>
+                        <Link href="http://fb.com/registruleducationalalternativ">
+                            <FacebookIcon sx={{mx:1}}/>
+                        </Link>
+                        <Link href="https://estereal.ro">
+                            <WebIcon sx={{mx:1}}/>
+                        </Link>
+                    </Grid>
+                    {/* <Grid item xs={12} sm={12}>
                         <Typography id={`r1-label`}>Ce recomandări ați oferi elevilor din liceul în care predați?</Typography>
                         <FormHelperText error>{errors.r1}</FormHelperText>
                         <TextField
@@ -110,18 +125,18 @@ export default function FormSubmit({ formValues, nextStep, previousStep, formSta
                             fullWidth
                             onChange={(e) => handleChange(e, "r4")}
                         />
-                    </Grid>
+                    </Grid> */}
 
                 </FormWrapper>
             ) : (
-                <FormWrapper onSubmit={handleSubmit} onPrevious={handlePrevious}>
+                <FormWrapper onPrevious={handlePrevious}>
                     <Grid item xs={12} sm={12}>
                         <strong>
                             <h1 style={{ margin: 0 }}>Ne pare rău! &#128577;</h1>
                             <p style={{ margin: 0 }}>Din păcate, informațiile trimise de dvs. nu au fost trimise cu succes.</p>
                         </strong>
                         <small><i><b>Mesaj eroare</b>: {formState.message}</i></small><br /><br />
-                        <small style={{ fontWeight: 300 }}>Dacă doriți, puteți reîncerca.</small>
+                        <small style={{ fontWeight: 300 }}>Dacă doriți, puteți reîncerca sau modifica informatiile existente.</small>
                     </Grid>
                 </FormWrapper>
             )}

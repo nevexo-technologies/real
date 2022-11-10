@@ -17,7 +17,7 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', () => {
-    console.log("Ready!");
+    console.log("Initialised Ministrul Educational Alternativ.");
 });
 
 client.on("guildMemberAdd", async member => {
@@ -44,8 +44,7 @@ client.on("guildMemberAdd", async member => {
     }
     catch (err) {
         if (err.code && err.code === "P2002") {
-            member.send(`Bine ai revenit, ${member.displayName}!\nCând vom începe colectarea răspunsurilor pentru chestionarul REAL, te rugăm să folosești acest link: https://formular.estereal.ro/?ref=${refCode} pentru a îl da mai departe.`);
-            console.log(`Resent (partial) newcomer message for ${member.id}.`);
+            console.log(`Member ${member.id} rejoined server. Aborting sending message.`);
         }
     }
 });
