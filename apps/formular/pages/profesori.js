@@ -66,7 +66,7 @@ export default function StudentForm() {
                             <Resources formValues={formValues} nextStep={nextStep} previousStep={previousStep} />
                         )}
                         {formStep == 3 && (
-                            <Community formValues={formValues} nextStep={nextStep} previousStep={previousStep} setFormState={formState} />
+                            <Community formValues={formValues} nextStep={nextStep} previousStep={previousStep} setFormState={setFormState} />
                         )}
                         {formStep == 4 && (
                             <FormSubmit formValues={formValues} nextStep={nextStep} previousStep={previousStep} formState={formState} />

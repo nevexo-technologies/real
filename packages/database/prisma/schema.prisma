@@ -10,7 +10,7 @@ datasource db {
 model Ambasador {
   id          Int      @id @default(autoincrement())
   discordName String?  @db.VarChar(255)
-  discordId   String?  @db.VarChar(255)
+  discordId   String?  @db.VarChar(255) @unique
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

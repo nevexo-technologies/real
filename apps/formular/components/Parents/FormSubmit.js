@@ -1,6 +1,7 @@
 import { Box, Grid, Typography, MenuItem, Select, TextField, FormHelperText, LinearProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import FormWrapper from '../FormWrapper';
+import SocialLinks from '../SocialLinks';
 import getValidationSchema from "./ValidationSchema";
 
 export default function FormSubmit({ formValues, nextStep, previousStep, formState }) {
@@ -46,15 +47,16 @@ export default function FormSubmit({ formValues, nextStep, previousStep, formSta
     return (
         <>
             {!formState.error ? (
-                <FormWrapper onSubmit={handleSubmit} onPrevious={handlePrevious}>
+                <FormWrapper>
                     <Grid item xs={12} sm={12}>
                         <strong>
-                            <h1 style={{ margin: 0 }}>Multumim! ❤️</h1>
+                            <h1 style={{ margin: 0 }}>Mulțumim! ❤️</h1>
                             <p style={{ margin: 0 }}>Ați parcurs cu succes tot formularul!</p>
                         </strong>
-                        <small style={{ fontWeight: 300 }}>Daca doriți, mai puteți lăsa câteva recomandări comunității dvs.</small>
+                        <small style={{ fontWeight: 300 }}>Puteți închide această pagină în siguranță.</small>
                     </Grid>
-                    <Grid item xs={12} sm={12}>
+                    <SocialLinks />
+                    {/* <Grid item xs={12} sm={12}>
                         <Typography id={`r1-label`}>Sfaturi adresate părinților care vor sa aibă copiii înscriși la instituția de învățământ respectivă</Typography>
                         <FormHelperText error>{errors.r1}</FormHelperText>
                         <TextField
@@ -80,7 +82,7 @@ export default function FormSubmit({ formValues, nextStep, previousStep, formSta
                             fullWidth
                             onChange={(e) => handleChange(e, "r2")}
                         />
-                    </Grid>
+                    </Grid> */}
 
                 </FormWrapper>
             ) : (
@@ -91,7 +93,7 @@ export default function FormSubmit({ formValues, nextStep, previousStep, formSta
                             <p style={{ margin: 0 }}>Din păcate, informațiile trimise de dvs. nu au fost trimise cu succes.</p>
                         </strong>
                         <small><i><b>Mesaj eroare</b>: {formState.message}</i></small><br /><br />
-                        <small style={{ fontWeight: 300 }}>Dacă doriți, puteți reîncerca.</small>
+                        <small style={{ fontWeight: 300 }}>Dacă doriți, puteți reîncerca sau modifica informatiile existente.</small>
                     </Grid>
                 </FormWrapper>
             )}
