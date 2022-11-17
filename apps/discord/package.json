@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "scripts": {
         "start": "node index.js",
-        "dev": "node index.js",
+        "dev": "echo 'Skipping discord bot' #node index.js",
         "bot:update": "node deploy-commands.js"
     },
     "dependencies": {
