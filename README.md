@@ -6,11 +6,12 @@ Monorepo-ul REAL se foloseste de [yarn](https://yarnpkg.com) pentru package mana
 
 ### Apps and Packages
 
-- `formular`: Platforma [Next.js](https://nextjs.org/) pentru formularul esteREAL
-- `rezultate`: *Coming soon* Platforma [Next.js](https://nextjs.org/) pentru afisarea rezultatelor esteREAL
-- `discord`: Botul de discord Ministrul Educational Alternativ
-- `@real/database`: Package pentru baza de date a sistmeului
-- `tsconfig`: `tsconfig.json` pentru monorepo
+- `formular`: Formularele pentru elevi, profesori si parinti. [README.md](apps/formular/README.md)
+- `rezultate`: Platforma pentru afisarea rezultatelor formularului. [README.md](apps/rezultate/README.md)
+- `discord`: Botul de discord Ministrul Educational Alternativ. [README.md](packages/discord/README.md)
+- `@real/database`: Package pentru baza de date a sistmeului.
+- `config`: Configuratia ESLint.
+- `tsconfig`: Configuratia Typescript.
 
 ### Setup
 
@@ -19,7 +20,7 @@ Monorepo-ul REAL se foloseste de [yarn](https://yarnpkg.com) pentru package mana
 3. Completare fisier .env din `apps/discord` cu ajutorul fisierului `.env.example` din folder.
 4. Rulare `yarn` pentru a instala dependintele.
 
-### Develop
+### Development
 
 Pentru development se ruleaza:
 
