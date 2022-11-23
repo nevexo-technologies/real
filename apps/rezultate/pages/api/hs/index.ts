@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '@real/database';
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
-    //Show all database entries that include highschool
+
     const studentResults = await prisma.elev.findMany({
         select: {
             hs: true,
