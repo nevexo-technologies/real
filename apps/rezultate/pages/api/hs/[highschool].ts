@@ -12,7 +12,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         },
         resources: {
             elevi: ["e20", "e22", "e23", "e24", "e24b", "e25", "e25b"],
-            teachers: [],
+            teachers: ["p13", "p14"],
         },
         studentCommunity: {
             elevi: ["e32", "e33", "e38", "e39", "e40", "e41", "e43"],
