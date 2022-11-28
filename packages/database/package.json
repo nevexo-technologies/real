@@ -14,7 +14,6 @@
         "db:migrate:deploy": "prisma migrate deploy",
         "db:migrate:dev": "prisma migrate dev",
         "db:push": "prisma db push",
-        "db:seed": "tsx src/seed.ts",
         "dev": "tsup --watch",
         "format": "prisma format",
         "generate": "prisma generate",
@@ -24,12 +23,12 @@
         "studio": "prisma studio"
     },
     "dependencies": {
-        "@prisma/client": "^3.10.0"
+        "@prisma/client": "^4.6.1"
     },
     "devDependencies": {
         "config": "*",
         "eslint": "^8.12.0",
-        "prisma": "^3.10.0",
+        "prisma": "^4.6.1",
         "rimraf": "^3.0.2",
         "tsconfig": "*",
         "tsup": "^5.11.13",
