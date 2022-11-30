@@ -1,5 +1,6 @@
 import type { NextApiResponse } from 'next'
 import LRU from 'lru-cache'
+import { NextRequest, NextResponse } from 'next/server'
 
 type Options = {
   uniqueTokenPerInterval?: number
@@ -13,7 +14,7 @@ export default function rateLimit(options?: Options) {
   })
 
   return {
-    check: (res: NextApiResponse, limit: number, token: string) =>
+    check: (res: NextResponse, limit: number, token: string) =>
       new Promise<void>((resolve, reject) => {
         const tokenCount = (tokenCache.get(token) as number[]) || [0]
         if (tokenCount[0] === 0) {
@@ -22,11 +23,14 @@ export default function rateLimit(options?: Options) {
         tokenCount[0] += 1
 
         const currentUsage = tokenCount[0]
-        const isRateLimited = currentUsage >= limit
-        res.setHeader('X-RateLimit-Limit', limit)
-        res.setHeader(
+        const isRateLimited = currentUsage >= limit 
+
+        console.log(currentUsage);
+
+        res.headers.set('X-RateLimit-Limit', String(limit))
+        res.headers.set(
           'X-RateLimit-Remaining',
-          isRateLimited ? 0 : limit - currentUsage
+          String(isRateLimited ? 0 : limit - currentUsage)
         )
 
         return isRateLimited ? reject() : resolve()

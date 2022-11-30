@@ -24,5 +24,8 @@
     "react-dom": "18.2.0",
     "tsconfig": "*",
     "typescript": "4.9.3"
+  },
+  "devDependencies": {
+    "@types/lru-cache": "^7.10.10"
   }
 }

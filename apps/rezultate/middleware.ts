@@ -7,9 +7,16 @@ const limiter = rateLimit({
 })
 
 export default async function middleware(req: NextRequest) {
- 
-    // middleware code starts here
-
-    return NextResponse.next();
+    try {
+        const response = NextResponse.next();
+        await limiter.check(response, 5, 'API_LIMIT_TOKEN');
+        return response;
+    }
+    catch {
+        return new NextResponse(JSON.stringify({ message: 'Rate limit exceeded' }), { status: 429, headers: { 'Content-Type': 'application/json' } });
+    }
 }
 
+export const config = {
+    matcher: '/api/:path*',
+}
