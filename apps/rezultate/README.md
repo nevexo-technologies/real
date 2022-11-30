@@ -1,3 +1,3 @@
-# Rezultate REAL
+# Platforma REAL
 
-Platforma afisare rezultate REAL.
+Platforma pentru afisarea datelor din formularul REAL.
