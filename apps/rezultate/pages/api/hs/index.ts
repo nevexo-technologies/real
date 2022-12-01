@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '@real/database';
 import rateLimit from 'helpers/rateLimit';
+import getHsMetrics from 'helpers/getHsMetrics';
 
 const limiter = rateLimit({
     interval: 60 * 1000, // 60 seconds
@@ -54,6 +55,36 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         }
     }
 
-    res.status(200).json(highschools);
+    //for each highschool, get metrics
+    let metrics = [] as { highschool: string, elevi: number, profesori: number, parinti: number }[];
+    for (let i = 0; i < highschools.length; i++) {
+        const studentResults = await prisma.elev.findMany({
+            where: {
+                hs: highschools[i].name,
+            },
+        });
+
+        const teacherResults = await prisma.profesor.findMany({
+            where: {
+                hs: highschools[i].name,
+            },
+        });
+
+        const parentResults = await prisma.parinte.findMany({
+            where: {
+                hs: highschools[i].name,
+            },
+        });
+
+
+        const hsMetrics = getHsMetrics({ elevi: studentResults, profesori: teacherResults, parinti: parentResults }); //.scores.real
+
+        metrics.push({ highschool: highschools[i].name, ...hsMetrics });
+    }
+
+    res.status(200).json(metrics);
     return;
+
+    // res.status(200).json(highschools);
+    // return;
 }
