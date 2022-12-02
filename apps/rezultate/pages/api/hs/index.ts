@@ -55,37 +55,39 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         }
     }
 
-    let metrics = [] as { highschool: string, elevi: number, profesori: number, parinti: number }[];
-    for (let i = 0; i < highschools.length; i++) {
-        const studentResults = await prisma.elev.findMany({
-            where: {
-                hs: highschools[i].name,
-            },
-        });
+    if (req.method == 'GET') {
+        let metrics = [] as { highschool: string, elevi: number, profesori: number, parinti: number }[];
+        for (let i = 0; i < highschools.length; i++) {
+            const studentResults = await prisma.elev.findMany({
+                where: {
+                    hs: highschools[i].name,
+                },
+            });
 
-        const teacherResults = await prisma.profesor.findMany({
-            where: {
-                hs: highschools[i].name,
-            },
-        });
+            const teacherResults = await prisma.profesor.findMany({
+                where: {
+                    hs: highschools[i].name,
+                },
+            });
 
-        const parentResults = await prisma.parinte.findMany({
-            where: {
-                hs: highschools[i].name,
-            },
-        });
+            const parentResults = await prisma.parinte.findMany({
+                where: {
+                    hs: highschools[i].name,
+                },
+            });
 
 
-        const hsMetrics = getHsMetrics({ elevi: studentResults, profesori: teacherResults, parinti: parentResults }); //.scores.real
+            const hsMetrics = getHsMetrics({ elevi: studentResults, profesori: teacherResults, parinti: parentResults }); //.scores.real
 
-        metrics.push({ highschool: highschools[i].name, ...hsMetrics });
+            metrics.push({ highschool: highschools[i].name, ...hsMetrics });
+        }
+
+        metrics.sort((a, b) => b.scores.real - a.scores.real);
+        res.status(200).json(metrics);
+        return;
     }
-
-    metrics.sort((a, b) => b.scores.real - a.scores.real);
-
-    res.status(200).json(metrics);
-    return;
-
-    // res.status(200).json(highschools);
-    // return;
+    else if (req.method == 'POST') {
+        res.status(200).json(highschools);
+        return;
+    }
 }
