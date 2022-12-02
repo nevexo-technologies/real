@@ -55,7 +55,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         }
     }
 
-    //for each highschool, get metrics
     let metrics = [] as { highschool: string, elevi: number, profesori: number, parinti: number }[];
     for (let i = 0; i < highschools.length; i++) {
         const studentResults = await prisma.elev.findMany({
@@ -81,6 +80,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
         metrics.push({ highschool: highschools[i].name, ...hsMetrics });
     }
+
+    metrics.sort((a, b) => b.scores.real - a.scores.real);
 
     res.status(200).json(metrics);
     return;
