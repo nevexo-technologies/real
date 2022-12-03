@@ -19,8 +19,11 @@
     "lint": "turbo run lint"
   },
   "devDependencies": {
+    "dotenv": "^16.0.0",
     "tsx": "^3.7.1",
-    "turbo": "latest",
-    "dotenv": "^16.0.0"
+    "turbo": "latest"
+  },
+  "dependencies": {
+    "swr": "^1.3.0"
   }
 }

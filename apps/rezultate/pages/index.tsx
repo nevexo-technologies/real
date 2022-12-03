@@ -1,6 +1,7 @@
 import Header from "@components/Header";
+import HsCard from "@components/HsCard";
 import Layout from "@components/Layout";
-import { Box, Typography, Autocomplete, TextField, CircularProgress, Skeleton, Alert, useMediaQuery, styled, alpha, Chip, Grid } from "@mui/material";
+import { Box, Typography, Autocomplete, TextField, CircularProgress, Skeleton, Alert, useMediaQuery, styled, alpha, Chip, Grid, Card, CardContent, CardActions, Button, Avatar } from "@mui/material";
 import { Container } from "@mui/system";
 import { useRouter } from "next/router";
 import useSWR from "swr";
@@ -21,6 +22,9 @@ export default function Rezultate() {
   const router = useRouter();
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const { data: availHs, error: hsError } = useSWR<{ name: string, records: number }[], any>("/api/hs");
+  const { data: topHs, error: topError } = useSWR<{ hs: string, real: number, records: number }[], any>("/api/hs?filterBy=real");
+
+  console.log(topHs);
 
   return (
     <Layout>
@@ -56,20 +60,32 @@ export default function Rezultate() {
           </Typography>
         </Container>
       </Container>
-      <Container sx={{ my: 5, textAlign: "center" }} maxWidth="lg">
-        <Typography variant="h4" sx={{ my: 2 }}>Top licee</Typography>
-        <Chip label="Coming soon..." />
-        <Grid sx={{ my: 2 }} container spacing={2}>
-          <Grid item xs={4}>
-            <Skeleton variant="rounded" height={200} />
+      <Container sx={{ my: 5 }} maxWidth="lg">
+        <Typography variant="h4" sx={{ my: 2, textAlign: "center" }}>Top licee</Typography>
+        {topError && <Alert severity="error">Eroare la încărcarea datelor - vă rugăm reîncercați</Alert>}
+        {(!topHs && !topError) && (
+          <Grid sx={{ my: 2 }} container spacing={2}>
+            <Grid item xs={4}>
+              <Skeleton variant="rounded" height={200} />
+            </Grid>
+            <Grid item xs={4}>
+              <Skeleton variant="rounded" height={200} />
+            </Grid>
+            <Grid item xs={4}>
+              <Skeleton variant="rounded" height={200} />
+            </Grid>
           </Grid>
-          <Grid item xs={4}>
-            <Skeleton variant="rounded" height={200} />
+        )}
+        {topHs && (
+          <Grid container spacing={2}>
+            {topHs.slice(0, 3).map(({ hs, real, records }, idx) => (
+              <Grid key={idx} item xs={4}>
+                <HsCard hs={hs} real={real} pos={idx + 1} />
+              </Grid>
+            ))}
           </Grid>
-          <Grid item xs={4}>
-            <Skeleton variant="rounded" height={200} />
-          </Grid>
-        </Grid>
+        )}
+
       </Container>
     </Layout>
   )
