@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography, Container, Divider, InputBase, Box, Button
 import SearchIcon from '@mui/icons-material/Search';
 import Image from "next/image";
 import logo from "../public/logo.png";
+import Link from 'next/link';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -51,14 +52,17 @@ export default function Header() {
       <AppBar position="sticky" color="default">
         <Container maxWidth="xl">
           <Toolbar>
-            <Image src={logo} alt="Logo" height={55} />
+            <Link href="/" passHref>
+              <Image src={logo} alt="Logo" height={55} />
+            </Link>
             <Divider orientation="vertical" variant="middle" flexItem />
             <Typography sx={{ mx: 1.5, flexGrow: 1, textTransform: "uppercase", letterSpacing: "2px" }} color="inherit">
               Rezultate
             </Typography>
+
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-              <Button>
-                <Typography color={(theme)=>theme.palette.text.primary}>
+              <Button href="/top">
+                <Typography color={(theme) => theme.palette.text.primary}>
                   Top licee
                 </Typography>
               </Button>
