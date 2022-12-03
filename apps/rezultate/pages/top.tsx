@@ -2,6 +2,7 @@ import HsCard from "@components/HsCard";
 import Layout from "@components/Layout";
 import { Alert, Grid, Skeleton, Typography } from "@mui/material";
 import { Container } from "@mui/system";
+import Head from "next/head";
 import useSWR from "swr";
 
 export default function TopHsPage() {
@@ -9,6 +10,9 @@ export default function TopHsPage() {
 
     return (
         <Layout>
+            <Head>
+                <title>Topul liceelor | Registrul Educațional Alternativ</title>
+            </Head>
             <Container>
                 <Typography variant="h3" sx={{ my: 5 }}>Top licee</Typography>
                 {topError && <Alert severity="error">Eroare la încărcarea datelor - vă rugăm reîncercați</Alert>}
