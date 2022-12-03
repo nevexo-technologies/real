@@ -38,7 +38,6 @@ export default function Community({ formValues, nextStep, previousStep, setFormS
                 nextStep(fields);
                 return data;
             }).catch(err => {
-                console.log(err);
                 setFormState({ loading: false, error: true, message: err.message });
 
                 if (err.errors) {
@@ -63,7 +62,6 @@ export default function Community({ formValues, nextStep, previousStep, setFormS
     }
 
     const handlePrevious = (e) => {
-        console.log(fields);
         previousStep();
     }
 

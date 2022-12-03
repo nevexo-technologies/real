@@ -36,44 +36,19 @@ interface IHsMetrics {
     inclusivity: number,
 }
 
-function cleanFormData<T extends {}>(formData: T[], acceptedKeys: string[]): { sum: number, length: number } {
-    if (formData?.length === 0) {
-        return {
-            sum: 0,
-            length: 0
-        }
+export interface HsProcessed {
+    scores: {
+        resources: number;
+        opportunities: number;
+        studentCommunity: number;
+        teacherCommunity: number;
+        inclusivity: number;
+        real: number;
     }
-
-    const dataFlattened = formData.map((val, idx) => [...Object.keys(val).map((key) => {
-        if (acceptedKeys.includes(key)) {
-            const multipleChoice = String(val[key as keyof T]).split(",");
-            if (multipleChoice?.length > 1) {
-                const allChoices = multipleChoice.map((val) => parseInt(val));
-
-                if (allChoices.includes(0)) {
-                    return 1;
-                }
-
-                return 0;
-            }
-
-            const fieldValue = Number(val[key as keyof T]) / 5
-            return fieldValue > 1 ? 1 : fieldValue;
-        }
-        return;
-    })
-    ]).flat()
-    const dataCleaned = dataFlattened.filter((val) => val != undefined && val != -1);
-
-    const dataSum = dataCleaned.reduce((acc, val) => (acc as number) + (val as number), 0);
-
-    return {
-        sum: dataSum as number,
-        length: dataCleaned.length
-    }
+    facilities: string[];
 }
 
-export default function getHsMetrics({ elevi, parinti, profesori }: { elevi: Elev[], parinti: Parinte[], profesori: Profesor[] }) {
+export default function getHsMetrics({ elevi, parinti, profesori }: { elevi: Elev[], parinti: Parinte[], profesori: Profesor[] }) : HsProcessed {
     const facilitiesUnfiltered = elevi.reduce<{ e19: string[], e21: string[] }>((acc, { e19, e21 }) => {
         return {
             e19: [...acc.e19, ...e19.split(",")],
@@ -114,6 +89,43 @@ export default function getHsMetrics({ elevi, parinti, profesori }: { elevi: Ele
             resources: (metrics.resources + a01) > 10 ? 10 : (metrics.resources + a01),
         },
         facilities: [...facilitiesFitered.e19, ...facilitiesFitered.e21]
+    }
+}
+
+function cleanFormData<T extends {}>(formData: T[], acceptedKeys: string[]): { sum: number, length: number } {
+    if (!formData || formData?.length === 0) {
+        return {
+            sum: 0,
+            length: 0
+        }
+    }
+
+    const dataFlattened = formData.map((val, idx) => [...Object.keys(val).map((key) => {
+        if (acceptedKeys.includes(key)) {
+            const multipleChoice = String(val[key as keyof T]).split(",");
+            if (multipleChoice?.length > 1) {
+                const allChoices = multipleChoice.map((val) => parseInt(val));
+
+                if (allChoices.includes(0)) {
+                    return 1;
+                }
+
+                return 0;
+            }
+
+            const fieldValue = Number(val[key as keyof T]) / 5
+            return fieldValue > 1 ? 1 : fieldValue;
+        }
+        return;
+    })
+    ]).flat()
+    const dataCleaned = dataFlattened.filter((val) => val != undefined && val != -1);
+
+    const dataSum = dataCleaned.reduce((acc, val) => (acc as number) + (val as number), 0);
+
+    return {
+        sum: dataSum as number,
+        length: dataCleaned.length
     }
 }
 
