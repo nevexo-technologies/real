@@ -23,10 +23,8 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 export default function Rezultate() {
   const router = useRouter();
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const { data: availHs, error: hsError } = useSWR<{ name: string, records: number }[], any>("/api/hs");
+  const { data: availHs, error: hsError } = useSWR<{ hs: string, records: number }[], any>("/api/hs");
   const { data: topHs, error: topError } = useSWR<{ hs: string, real: number, records: number }[], any>("/api/hs?filterBy=real");
-
-  // console.log(topHs);
 
   return (
     <Layout>
@@ -40,7 +38,7 @@ export default function Rezultate() {
             <Autocomplete
               freeSolo
               disableClearable
-              options={availHs ? availHs.map(({ name }) => name) : []}
+              options={availHs ? availHs.map(({ hs }) => hs) : []}
               sx={{ width: "70%", my: 2 }}
               onChange={(e, value) => router.push(`/${value}`)}
               renderInput={(params) => {

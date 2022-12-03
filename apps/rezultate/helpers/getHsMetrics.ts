@@ -60,8 +60,8 @@ export default function getHsMetrics({ elevi, parinti, profesori }: { elevi: Ele
     const e19Values = ["Bănci", "Scaune", "Catedră", "Spații de depozitare", "Tablă", "Aer condiționat", "Calculatoare", "Laboratoare", "Automat cu mâncare"];
     const e21Values = ["Cretă/Markere", "Săpun", "Hârtie igienică", "Dezinfectant", "Burete pentru tablă", "Consumabile pentru laboratoare (de exemplu, reactivi pentru laboratorul de chimie etc.)"];
     const facilitiesFitered = {
-        e19: facilitiesUnfiltered.e19.map((val) => e19Values[Number(val)]),
-        e21: facilitiesUnfiltered.e21.map((val) => e21Values[Number(val)]),
+        e19: Array.from(new Set(facilitiesUnfiltered.e19)).map((val) => e19Values[Number(val)]),
+        e21: Array.from(new Set(facilitiesUnfiltered.e21)).map((val) => e21Values[Number(val)]),
     }
 
     const metrics = Object.keys(INDEXES).reduce<IHsMetrics>((acc, metric) => {
@@ -88,7 +88,7 @@ export default function getHsMetrics({ elevi, parinti, profesori }: { elevi: Ele
             ...metrics,
             resources: (metrics.resources + a01) > 10 ? 10 : (metrics.resources + a01),
         },
-        facilities: [...new Set([...facilitiesFitered.e19, ...facilitiesFitered.e21])]
+        facilities: [...facilitiesFitered.e19, ...facilitiesFitered.e21]
     }
 }
 
