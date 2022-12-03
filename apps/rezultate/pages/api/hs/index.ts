@@ -51,12 +51,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const groupedTeachers = groupHs(teachersResults);
             const groupedParents = groupHs(parentResults);
 
-            const groupedResults = Object.keys(groupedStudents).reduce<({ hs: string } & HsProcessed)[]>((acc, hs) => {
-                acc.push({ hs: hs, ...getHsMetrics({ elevi: groupedStudents[hs] as Elev[], profesori: groupedTeachers[hs] as Profesor[], parinti: groupedParents[hs] as Parinte[] }) });
+            const groupedResults = Object.keys(groupedStudents).reduce<{ hs: string, real: number, records: number }[]>((acc, hs) => {
+                const hsScores = getHsMetrics({ elevi: groupedStudents[hs] as Elev[], profesori: groupedTeachers[hs] as Profesor[], parinti: groupedParents[hs] as Parinte[] })
+                const hsRecords = groupedStudents[hs].length ?? 0 + groupedTeachers[hs].length ?? 0 + groupedParents[hs].length ?? 0;
+                acc.push({ hs: hs, real: hsScores.scores.real, records: hsRecords });
                 return acc;
             }, []);
 
-            res.status(200).json(groupedResults);
+            res.status(200).json(groupedResults.sort((a, b) => b.real - a.real));
             return;
         }
 
