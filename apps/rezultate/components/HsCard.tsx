@@ -4,7 +4,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 export default function HsCard({ hs, real, pos, records }: { hs: string, real: number, pos: number, records?: number }) {
     return (
-        <Card variant="outlined" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+        <Card variant="outlined" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minWidth: "100%", minHeight: "100%" }}>
             <CardContent>
                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                     Locul {pos}
