@@ -118,7 +118,7 @@ export default function HighschoolPage() {
                                 <Grid container spacing={2}>
                                     {data?.facilities.map((facility, index) => (
                                         <Grid key={index} item>
-                                            <Typography><CheckIcon sx={{ color: green[500] }} /> {facility}</Typography>
+                                            <Typography><CheckIcon sx={{ color: green[500], pt: 1 }} /> {facility}</Typography>
                                         </Grid>
                                     ))}
                                 </Grid>
