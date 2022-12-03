@@ -38,8 +38,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
 
         const metrics = getHsMetrics({ elevi: studentResults, profesori: teacherResults, parinti: parentResults });
+        const records = studentResults.length + teacherResults.length + parentResults.length;
 
-        res.status(200).json({ highschool, ...metrics });
+        res.status(200).json({ highschool, ...metrics, records});
         return;
     } catch (err) {
         res.status(500).json({ message: "Could not fetch metrics" });

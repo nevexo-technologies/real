@@ -3,8 +3,10 @@ import HsCard from "@components/HsCard";
 import Layout from "@components/Layout";
 import { Box, Typography, Autocomplete, TextField, CircularProgress, Skeleton, Alert, useMediaQuery, styled, alpha, Chip, Grid, Card, CardContent, CardActions, Button, Avatar } from "@mui/material";
 import { Container } from "@mui/system";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   '.MuiInputBase-root': {
@@ -28,7 +30,10 @@ export default function Rezultate() {
 
   return (
     <Layout>
-      <Container sx={{ backgroundImage: (prefersDarkMode ? "url(/background-dark.png)" : "url(/background-light.png)") }} maxWidth="xl">
+      <Head>
+        <title>Rezultate 2022 | Registrul Educațional Alternativ</title>
+      </Head>
+      <Box sx={{ backgroundImage: (prefersDarkMode ? "url(/background-dark.png)" : "url(/background-light.png)") }}>
         <Container sx={{ py: 10 }} maxWidth="lg">
           <Typography variant="h3">
             Caută rezultatele liceului tău!
@@ -59,7 +64,7 @@ export default function Rezultate() {
             />
           </Typography>
         </Container>
-      </Container>
+      </Box>
       <Container sx={{ my: 5 }} maxWidth="lg">
         <Typography variant="h4" sx={{ my: 2, textAlign: "center" }}>Top licee</Typography>
         {topError && <Alert severity="error">Eroare la încărcarea datelor - vă rugăm reîncercați</Alert>}
@@ -77,13 +82,18 @@ export default function Rezultate() {
           </Grid>
         )}
         {topHs && (
-          <Grid container spacing={2}>
-            {topHs.slice(0, 3).map(({ hs, real, records }, idx) => (
-              <Grid key={idx} item xs={4}>
-                <HsCard hs={hs} real={real} pos={idx + 1} />
-              </Grid>
-            ))}
-          </Grid>
+          <>
+            <Grid container spacing={2}>
+              {topHs.slice(0, 3).map(({ hs, real, records }, idx) => (
+                <Grid key={idx} item xs={4}>
+                  <HsCard hs={hs} real={real} pos={idx + 1} />
+                </Grid>
+              ))}
+            </Grid>
+            <Box sx={{ my: 2, textAlign: "center" }}>
+              <Button href="/top" color="secondary" variant="outlined" startIcon={<FormatListNumberedIcon/>}>Vezi topul liceelor</Button>
+            </Box>
+          </>
         )}
 
       </Container>
