@@ -88,7 +88,7 @@ export default function getHsMetrics({ elevi, parinti, profesori }: { elevi: Ele
             ...metrics,
             resources: (metrics.resources + a01) > 10 ? 10 : (metrics.resources + a01),
         },
-        facilities: [...facilitiesFitered.e19, ...facilitiesFitered.e21]
+        facilities: [...new Set([...facilitiesFitered.e19, ...facilitiesFitered.e21])]
     }
 }
 

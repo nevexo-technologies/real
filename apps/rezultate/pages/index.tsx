@@ -26,7 +26,7 @@ export default function Rezultate() {
   const { data: availHs, error: hsError } = useSWR<{ name: string, records: number }[], any>("/api/hs");
   const { data: topHs, error: topError } = useSWR<{ hs: string, real: number, records: number }[], any>("/api/hs?filterBy=real");
 
-  console.log(topHs);
+  // console.log(topHs);
 
   return (
     <Layout>
