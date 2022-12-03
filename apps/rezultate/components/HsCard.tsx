@@ -1,5 +1,6 @@
 import { Avatar, Button, Card, CardActions, CardContent, Chip, Typography } from "@mui/material";
 import NumbersIcon from '@mui/icons-material/Numbers';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 export default function HsCard({ hs, real, pos, records }: { hs: string, real: number, pos: number, records?: number }) {
     return (
@@ -13,8 +14,7 @@ export default function HsCard({ hs, real, pos, records }: { hs: string, real: n
                 {records && <Chip color="default" label={records == 1 ? `Un respondent` : `${records} respondenți`} sx={{mx:1}} icon={<NumbersIcon />} />}
             </CardContent>
             <CardActions>
-                <Button
-                    size="small" href={`/${hs}`}>Vezi liceul</Button>
+                <Button size="small" color="secondary" href={`/${hs}`} endIcon={<ArrowForwardIcon />}>Vezi datele liceului</Button>
             </CardActions>
         </Card>
     )
