@@ -60,9 +60,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const groupedResults = Object.keys(frequencyResults).reduce<{ hs: string, real: number, records: number }[]>((acc, hs) => {
                 if (groupedStudents[hs]) {
                     const hsScores = getHsMetrics({ elevi: groupedStudents[hs] as Elev[], profesori: groupedTeachers[hs] as Profesor[], parinti: groupedParents[hs] as Parinte[] })
-                    const hsRecords = groupedStudents[hs].length ?? 0 + groupedTeachers[hs].length ?? 0 + groupedParents[hs].length ?? 0;
-                    
-                    console.log(hsRecords,frequencyResults[hs]);
+                    const hsRecords = (groupedStudents[hs]?.length || 0) + (groupedTeachers[hs]?.length || 0) + (groupedParents[hs]?.length || 0);
 
                     acc.push({ hs: hs, real: hsScores.scores.real, records: hsRecords });
                 }
@@ -70,7 +68,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 return acc;
             }, []);
 
-            res.status(200).json(groupedResults.sort((a, b) => b.real - a.real));
+            res.status(200).json(groupedResults.sort((a, b) => (b.real - a.real)*0.75 + (b.records - a.records)*0.25));
             return;
         }
 
