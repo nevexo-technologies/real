@@ -22,8 +22,6 @@ export default function Resources({ formValues, nextStep, previousStep }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(fields);
-
         let validationSchema = await getValidationSchema();
         let schema = validationSchema.pick(["e19", "e20", "e21", "e22", "e23", "e24", "e24b", "e25", "e25b"])
 
