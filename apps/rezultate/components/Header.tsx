@@ -56,7 +56,7 @@ export default function Header() {
               <Image src={logo} alt="Logo" height={55} />
             </Link>
             <Divider orientation="vertical" variant="middle" flexItem />
-            <Typography sx={{ mx: 1.5, flexGrow: 1, textTransform: "uppercase", letterSpacing: "2px" }} color="inherit">
+            <Typography sx={{ mx: 1.5, flexGrow: 1, textTransform: "uppercase", letterSpacing: "2px", display: { xs: 'none', sm: 'block' }}} color="inherit">
               Rezultate
             </Typography>
 

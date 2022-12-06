@@ -76,7 +76,7 @@ export default function HighschoolPage() {
                     <Grid sx={{ py: 5, alignItems: "center" }} container>
                         <Grid item xs={8}>
                             <Typography variant="h5" sx={{ fontWeight: 500 }}>{highschool}</Typography>
-                            {data?.records && <Chip color="default" label={data.records == 1 ? `Un respondent` : `${data.records} respondenți`} icon={<NumbersIcon />} />}
+                            {data?.records && <Chip color="default" sx={{marginTop:2}} label={data.records == 1 ? `Un respondent` : `${data.records} respondenți`} icon={<NumbersIcon />} />}
                         </Grid>
                         <Grid item xs={4} sx={{ textAlign: "center" }}>
                             <CircularProgressWithLabel
