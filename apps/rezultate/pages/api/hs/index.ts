@@ -46,44 +46,35 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             })
         });
 
+        const results = [studentResults, teachersResults, parentResults].flat().map(({ hs }) => hs);
+        const frequencyResults = results.reduce<{ [key: string]: number }>((acc, hs) => {
+            acc[hs] = (acc[hs] ?? 0) + 1;
+            return acc;
+        }, {});
+
         if (realFilter) {
             const groupedStudents = groupHs(studentResults);
             const groupedTeachers = groupHs(teachersResults);
             const groupedParents = groupHs(parentResults);
 
-            const groupedResults = Object.keys(groupedStudents).reduce<{ hs: string, real: number, records: number }[]>((acc, hs) => {
-                const hsScores = getHsMetrics({ elevi: groupedStudents[hs] as Elev[], profesori: groupedTeachers[hs] as Profesor[], parinti: groupedParents[hs] as Parinte[] })
-                const hsRecords = groupedStudents[hs].length ?? 0 + groupedTeachers[hs].length ?? 0 + groupedParents[hs].length ?? 0;
-                acc.push({ hs: hs, real: hsScores.scores.real, records: hsRecords });
+            const groupedResults = Object.keys(frequencyResults).reduce<{ hs: string, real: number, records: number }[]>((acc, hs) => {
+                if (groupedStudents[hs]) {
+                    const hsScores = getHsMetrics({ elevi: groupedStudents[hs] as Elev[], profesori: groupedTeachers[hs] as Profesor[], parinti: groupedParents[hs] as Parinte[] })
+                    const hsRecords = (groupedStudents[hs]?.length || 0) + (groupedTeachers[hs]?.length || 0) + (groupedParents[hs]?.length || 0);
+
+                    acc.push({ hs: hs, real: hsScores.scores.real, records: hsRecords });
+                }
+
                 return acc;
             }, []);
 
-            res.status(200).json(groupedResults.sort((a, b) => b.real - a.real));
+            res.status(200).json(groupedResults.sort((a, b) => (b.real - a.real)*0.75 + (b.records - a.records)*0.25));
             return;
         }
 
-        const results = [studentResults, teachersResults, parentResults].flat();
+        const resultList = Object.keys(frequencyResults).map((hs) => ({ hs, records: frequencyResults[hs] }));
 
-        let highschools = [] as { name: string, records: number }[];
-        for (let i = 0; i < results.length; i++) {
-            if (highschools.length == 0) {
-                highschools.push({ name: results[i].hs, records: 1 });
-            } else {
-                let found = false;
-                for (let j = 0; j < highschools.length; j++) {
-                    if (highschools[j].name == results[i].hs) {
-                        highschools[j].records++;
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) {
-                    highschools.push({ name: results[i].hs, records: 1 });
-                }
-            }
-        }
-
-        res.status(200).json(highschools);
+        res.status(200).json(resultList);
         return;
     }
 

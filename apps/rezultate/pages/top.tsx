@@ -32,7 +32,7 @@ export default function TopHsPage() {
                 {topHs && (
                     <Grid container spacing={2}>
                         {topHs.map(({ hs, real, records }, idx) => (
-                            <Grid key={idx} item xs={4}>
+                            <Grid key={idx} item xs={4} sx={{ display: "flex" }}>
                                 <HsCard hs={hs} real={real} pos={idx + 1} records={records} />
                             </Grid>
                         ))}
