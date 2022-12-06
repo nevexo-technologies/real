@@ -33,13 +33,13 @@ export default function Rezultate() {
       </Head>
       <Box sx={{ backgroundImage: (prefersDarkMode ? "url(/background-dark.png)" : "url(/background-light.png)") }}>
         <Container sx={{ py: 10 }} maxWidth="lg">
-          <Typography variant="h3">
+          <Typography variant="h3" sx={{fontSize:{xs:"xx-large"}}}>
             Caută rezultatele liceului tău!
             <Autocomplete
               freeSolo
               disableClearable
               options={availHs ? availHs.map(({ hs }) => hs) : []}
-              sx={{ width: "70%", my: 2 }}
+              sx={{ width: { md: "70%", xs: "100%" }, my: 2 }}
               onChange={(e, value) => router.push(`/${value}`)}
               renderInput={(params) => {
 
@@ -68,13 +68,13 @@ export default function Rezultate() {
         {topError && <Alert severity="error">Eroare la încărcarea datelor - vă rugăm reîncercați</Alert>}
         {(!topHs && !topError) && (
           <Grid sx={{ my: 2 }} container spacing={2}>
-            <Grid item xs={4}>
+            <Grid item md={4} xs={12}>
               <Skeleton variant="rounded" height={200} />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item md={4} xs={12}>
               <Skeleton variant="rounded" height={200} />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item md={4} xs={12}>
               <Skeleton variant="rounded" height={200} />
             </Grid>
           </Grid>
@@ -83,13 +83,13 @@ export default function Rezultate() {
           <>
             <Grid container spacing={2}>
               {topHs.slice(0, 3).map(({ hs, real, records }, idx) => (
-                <Grid key={idx} item xs={4}>
+                <Grid key={idx} item md={4} xs={12}>
                   <HsCard hs={hs} real={real} pos={idx + 1} />
                 </Grid>
               ))}
             </Grid>
             <Box sx={{ my: 2, textAlign: "center" }}>
-              <Button href="/top" color="secondary" variant="outlined" startIcon={<FormatListNumberedIcon/>}>Vezi topul liceelor</Button>
+              <Button href="/top" color="secondary" variant="outlined" startIcon={<FormatListNumberedIcon />}>Vezi topul liceelor</Button>
             </Box>
           </>
         )}

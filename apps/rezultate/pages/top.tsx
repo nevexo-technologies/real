@@ -18,13 +18,13 @@ export default function TopHsPage() {
                 {topError && <Alert severity="error">Eroare la încărcarea datelor - vă rugăm reîncercați</Alert>}
                 {(!topHs && !topError) && (
                     <Grid sx={{ my: 2 }} container spacing={2}>
-                        <Grid item xs={4}>
+                        <Grid item md={4} xs={12}>
                             <Skeleton variant="rounded" height={200} />
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item md={4} xs={12}>
                             <Skeleton variant="rounded" height={200} />
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item md={4} xs={12}>
                             <Skeleton variant="rounded" height={200} />
                         </Grid>
                     </Grid>
@@ -32,7 +32,7 @@ export default function TopHsPage() {
                 {topHs && (
                     <Grid container spacing={2}>
                         {topHs.map(({ hs, real, records }, idx) => (
-                            <Grid key={idx} item xs={4} sx={{ display: "flex" }}>
+                            <Grid key={idx} item md={4} xs={12} sx={{ display: "flex" }}>
                                 <HsCard hs={hs} real={real} pos={idx + 1} records={records} />
                             </Grid>
                         ))}
