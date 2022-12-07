@@ -1,6 +1,6 @@
 import Layout from "@components/Layout";
 import { Alert, Avatar, Box, Card, CardContent, Chip, CircularProgress, CircularProgressProps, Container, Fab, Grid, LinearProgress, linearProgressClasses, LinearProgressProps, styled, Typography, useMediaQuery } from "@mui/material";
-import { green } from "@mui/material/colors";
+import { green, red } from "@mui/material/colors";
 import { HsProcessed } from "helpers/getHsMetrics";
 import { useRouter } from "next/router";
 import useSWR from "swr";
@@ -8,6 +8,7 @@ import NumbersIcon from '@mui/icons-material/Numbers';
 import MetricCard from "@components/MetricCard";
 
 import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 import Head from "next/head";
 
 function CircularProgressWithLabel(
@@ -44,6 +45,10 @@ export default function HighschoolPage() {
 
     const { data, error } = useSWR<{ highschool: string, records: number } & HsProcessed>(`/api/hs/${highschool}`);
 
+    const facilitiesArray = ["Bănci", "Scaune", "Catedră", "Spații de depozitare", "Tablă", "Aer condiționat", "Calculatoare",
+        "Laboratoare", "Automat cu mâncare", "Cretă/Markere", "Săpun", "Hârtie igienică", "Dezinfectant", "Burete pentru tablă",
+        "Consumabile pentru laboratoare (de exemplu, reactivi pentru laboratorul de chimie etc.)"]
+
     if (!data && !error) return (
         <Layout>
             <Head>
@@ -76,7 +81,7 @@ export default function HighschoolPage() {
                     <Grid sx={{ py: 5, alignItems: "center" }} container>
                         <Grid item xs={8}>
                             <Typography variant="h5" sx={{ fontWeight: 500 }}>{highschool}</Typography>
-                            {data?.records && <Chip color="default" sx={{marginTop:2}} label={data.records == 1 ? `Un respondent` : `${data.records} respondenți`} icon={<NumbersIcon />} />}
+                            {data?.records && <Chip color="default" sx={{ marginTop: 2 }} label={data.records == 1 ? `Un respondent` : `${data.records} respondenți`} icon={<NumbersIcon />} />}
                         </Grid>
                         <Grid item xs={4} sx={{ textAlign: "center" }}>
                             <CircularProgressWithLabel
@@ -114,13 +119,35 @@ export default function HighschoolPage() {
                     <Grid item xs={12}>
                         <Card variant="outlined">
                             <CardContent>
-                                <Typography variant="h6" sx={{ fontWeight: 500 }}>Facilități</Typography>
-                                <Grid container spacing={2}>
-                                    {data?.facilities.map((facility, index) => (
-                                        <Grid key={index} item>
-                                            <Typography><CheckIcon sx={{ color: green[500], pt: 1 }} /> {facility}</Typography>
-                                        </Grid>
-                                    ))}
+                                <Typography variant="h6" sx={{ fontWeight: 500, marginBottom: 2 }}>Facilități</Typography>
+                                <Grid container spacing={2} sx={{ textOverflow: "ellipsis", overflow: "auto"}}>
+                                    {facilitiesArray.map((facility, index) => {
+                                        if (data?.facilities.includes(facility)) {
+                                            return (
+                                                <Grid key={index} item>
+                                                    <Chip
+                                                        key={index}
+                                                        label={facility}
+                                                        color="success"
+                                                        icon={<CheckIcon />}
+                                                    />
+                                                </Grid>
+                                            )
+                                        }
+                                        else {
+                                            return (
+                                                <Grid key={index} item>
+                                                    <Chip
+                                                        key={index}
+                                                        label={facility}
+                                                        color="error"
+                                                        icon={<CloseIcon />}
+                                                    />
+                                                </Grid>
+                                            )
+                                        }
+
+                                    })}
                                 </Grid>
                             </CardContent>
                         </Card>

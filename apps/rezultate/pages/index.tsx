@@ -1,7 +1,6 @@
-import Header from "@components/Header";
 import HsCard from "@components/HsCard";
 import Layout from "@components/Layout";
-import { Box, Typography, Autocomplete, TextField, CircularProgress, Skeleton, Alert, useMediaQuery, styled, alpha, Chip, Grid, Card, CardContent, CardActions, Button, Avatar } from "@mui/material";
+import { Box, Typography, Autocomplete, TextField, Skeleton, Alert, useMediaQuery, styled, alpha, Grid, Button } from "@mui/material";
 import { Container } from "@mui/system";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -36,7 +35,6 @@ export default function Rezultate() {
           <Typography variant="h3" sx={{fontSize:{xs:"xx-large"}}}>
             Caută rezultatele liceului tău!
             <Autocomplete
-              freeSolo
               disableClearable
               options={availHs ? availHs.map(({ hs }) => hs) : []}
               sx={{ width: { md: "70%", xs: "100%" }, my: 2 }}
