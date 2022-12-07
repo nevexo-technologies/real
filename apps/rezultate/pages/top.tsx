@@ -14,19 +14,16 @@ export default function TopHsPage() {
                 <title>Topul liceelor | Registrul Educațional Alternativ</title>
             </Head>
             <Container>
-                <Typography variant="h3" sx={{ my: 5 }}>Top licee</Typography>
+                <Typography variant="h3" sx={{ mt: 5 }}>Top licee</Typography>
+                <Typography variant="body1" sx={{ mb: 5 }}>Topul este calculat atât prin scorul REAL (75% din poziție) căt și prin numarul de respondenți (25% din poziție).</Typography>
                 {topError && <Alert severity="error">Eroare la încărcarea datelor - vă rugăm reîncercați</Alert>}
                 {(!topHs && !topError) && (
                     <Grid sx={{ my: 2 }} container spacing={2}>
-                        <Grid item md={4} xs={12}>
+                        {Array.from({ length: 6 }).map((_, idx) => (
+                            <Grid key={idx} item md={4} xs={12}>
                             <Skeleton variant="rounded" height={200} />
                         </Grid>
-                        <Grid item md={4} xs={12}>
-                            <Skeleton variant="rounded" height={200} />
-                        </Grid>
-                        <Grid item md={4} xs={12}>
-                            <Skeleton variant="rounded" height={200} />
-                        </Grid>
+                        ))}
                     </Grid>
                 )}
                 {topHs && (

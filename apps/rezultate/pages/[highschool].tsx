@@ -1,6 +1,5 @@
 import Layout from "@components/Layout";
-import { Alert, Avatar, Box, Card, CardContent, Chip, CircularProgress, CircularProgressProps, Container, Fab, Grid, LinearProgress, linearProgressClasses, LinearProgressProps, styled, Typography, useMediaQuery } from "@mui/material";
-import { green } from "@mui/material/colors";
+import { Alert, Avatar, Box, Card, CardContent, Chip, CircularProgress, CircularProgressProps, Container, Grid, Typography, useMediaQuery } from "@mui/material";
 import { HsProcessed } from "helpers/getHsMetrics";
 import { useRouter } from "next/router";
 import useSWR from "swr";
@@ -8,6 +7,7 @@ import NumbersIcon from '@mui/icons-material/Numbers';
 import MetricCard from "@components/MetricCard";
 
 import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 import Head from "next/head";
 
 function CircularProgressWithLabel(
@@ -40,29 +40,34 @@ function CircularProgressWithLabel(
 
 export default function HighschoolPage() {
     const { highschool } = useRouter().query;
+    const { data, error } = useSWR<{ highschool: string, records: number } & HsProcessed>(highschool ? `/api/hs/${highschool}` : null);
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+    
+    const facilitiesArray = ["Bănci", "Scaune", "Catedră", "Spații de depozitare", "Tablă", "Aer condiționat", "Calculatoare",
+        "Laboratoare", "Automat cu mâncare", "Cretă/Markere", "Săpun", "Hârtie igienică", "Dezinfectant", "Burete pentru tablă",
+        "Consumabile pentru laboratoare (de exemplu, reactivi pentru laboratorul de chimie etc.)"]
 
-    const { data, error } = useSWR<{ highschool: string, records: number } & HsProcessed>(`/api/hs/${highschool}`);
-
-    if (!data && !error) return (
-        <Layout>
-            <Head>
-                <title>Rezultate {highschool} | Registrul Educațional Alternativ</title>
-            </Head>
-            <Box sx={{ backgroundImage: (prefersDarkMode ? "url(/background-dark.png)" : "url(/background-light.png)") }}>
-                <Container sx={{ py: 10 }} maxWidth="lg">
+    if (!data && !error) {
+        return (
+            <Layout>
+                <Head>
+                    <title>Rezultate {highschool} | Registrul Educațional Alternativ</title>
+                </Head>
+                <Container sx={{ py: 10, display:"flex", justifyContent: "center" }} maxWidth="lg">
                     <CircularProgress />
                 </Container>
-            </Box>
-        </Layout>
-    )
+            </Layout>
+        )
+    }
 
     if (error) return (
         <Layout>
             <Head>
                 <title>Rezultate {highschool} | Registrul Educațional Alternativ</title>
             </Head>
-            <Alert severity="error">Eroare la încărcarea datelor - vă rugăm reîncercați</Alert>
+            <Container>
+                <Alert severity="error" sx={{ my: 4 }}>Eroare la încărcarea datelor - vă rugăm reîncercați</Alert>
+            </Container>
         </Layout>
     )
 
@@ -76,7 +81,7 @@ export default function HighschoolPage() {
                     <Grid sx={{ py: 5, alignItems: "center" }} container>
                         <Grid item xs={8}>
                             <Typography variant="h5" sx={{ fontWeight: 500 }}>{highschool}</Typography>
-                            {data?.records && <Chip color="default" sx={{marginTop:2}} label={data.records == 1 ? `Un respondent` : `${data.records} respondenți`} icon={<NumbersIcon />} />}
+                            {data?.records && <Chip color="default" sx={{ marginTop: 2 }} label={data.records == 1 ? `Un respondent` : `${data.records} respondenți`} icon={<NumbersIcon />} />}
                         </Grid>
                         <Grid item xs={4} sx={{ textAlign: "center" }}>
                             <CircularProgressWithLabel
@@ -114,13 +119,37 @@ export default function HighschoolPage() {
                     <Grid item xs={12}>
                         <Card variant="outlined">
                             <CardContent>
-                                <Typography variant="h6" sx={{ fontWeight: 500 }}>Facilități</Typography>
-                                <Grid container spacing={2}>
-                                    {data?.facilities.map((facility, index) => (
-                                        <Grid key={index} item>
-                                            <Typography><CheckIcon sx={{ color: green[500], pt: 1 }} /> {facility}</Typography>
-                                        </Grid>
-                                    ))}
+                                <Typography variant="h6" sx={{ fontWeight: 500, marginBottom: 2 }}>Facilități</Typography>
+                                <Grid container spacing={2} sx={{ textOverflow: "ellipsis", overflow: "auto" }}>
+                                    {facilitiesArray.map((facility, index) => {
+                                        if (data?.facilities.includes(facility)) {
+                                            return (
+                                                <Grid key={index} item>
+                                                    <Chip
+                                                        key={index}
+                                                        label={facility}
+                                                        color="success"
+                                                        variant="outlined"
+                                                        icon={<CheckIcon />}
+                                                    />
+                                                </Grid>
+                                            )
+                                        }
+                                        else {
+                                            return (
+                                                <Grid key={index} item>
+                                                    <Chip
+                                                        key={index}
+                                                        label={facility}
+                                                        variant="outlined"
+                                                        color="error"
+                                                        icon={<CloseIcon />}
+                                                    />
+                                                </Grid>
+                                            )
+                                        }
+
+                                    })}
                                 </Grid>
                             </CardContent>
                         </Card>
