@@ -15,7 +15,7 @@ export default function TopHsPage() {
             </Head>
             <Container>
                 <Typography variant="h3" sx={{ mt: 5 }}>Top licee</Typography>
-                <Typography variant="body1" sx={{ mb: 5 }}>Topul este calculat atât prin scorul REAL (75% din poziție) căt și prin numarul de respondenți (25% din poziție).</Typography>
+                <Typography variant="body1" sx={{ mt: 2, mb: 5 }}>Topul este calculat atât prin scorul REAL (75% din poziție), cât și prin numărul de respondenți (25% din poziție).</Typography>
                 {topError && <Alert severity="error">Eroare la încărcarea datelor - vă rugăm reîncercați</Alert>}
                 {(!topHs && !topError) && (
                     <Grid sx={{ my: 2 }} container spacing={2}>
