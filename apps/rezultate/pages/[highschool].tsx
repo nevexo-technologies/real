@@ -40,10 +40,9 @@ function CircularProgressWithLabel(
 
 export default function HighschoolPage() {
     const { highschool } = useRouter().query;
-    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-
     const { data, error } = useSWR<{ highschool: string, records: number } & HsProcessed>(highschool ? `/api/hs/${highschool}` : null);
-
+    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+    
     const facilitiesArray = ["Bănci", "Scaune", "Catedră", "Spații de depozitare", "Tablă", "Aer condiționat", "Calculatoare",
         "Laboratoare", "Automat cu mâncare", "Cretă/Markere", "Săpun", "Hârtie igienică", "Dezinfectant", "Burete pentru tablă",
         "Consumabile pentru laboratoare (de exemplu, reactivi pentru laboratorul de chimie etc.)"]
