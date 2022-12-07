@@ -19,58 +19,9 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   }
 }));
 
-// const Search = styled('div')(({ theme }) => ({
-//   position: 'relative',
-//   borderRadius: theme.shape.borderRadius,
-//   backgroundColor: alpha("#000", 0.05),
-//   '&:hover': {
-//     backgroundColor: alpha("#000", 0.10),
-//   },
-//   marginLeft: 0,
-//   width: '100%',
-//   [theme.breakpoints.up('sm')]: {
-//     marginLeft: theme.spacing(1),
-//     width: 'auto',
-//   },
-// }));
-
-// const SearchIconWrapper = styled('div')(({ theme }) => ({
-//   padding: theme.spacing(0, 2),
-//   height: '100%',
-//   position: 'absolute',
-//   pointerEvents: 'none',
-//   display: 'flex',
-//   alignItems: 'center',
-//   justifyContent: 'center',
-// }));
-
-// const StyledInputBase = styled(InputBase)(({ theme }) => ({
-//   color: 'inherit',
-//   '& .MuiInputBase-input': {
-//     padding: theme.spacing(1, 1, 1, 0),
-//     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-//     transition: theme.transitions.create('width'),
-//     width: '100%',
-//     [theme.breakpoints.up('sm')]: {
-//       width: '14ch',
-//       '&:focus': {
-//         width: '20ch',
-//       },
-//     },
-//   },
-// }));
 
 export default function Header() {
   const { data: availHs, error: hsError } = useSWR<{ hs: string, records: number }[], any>("/api/hs");
-
-  // const handleChange = (value: string) => {
-  //   if (availHs) {
-  //     const filteredHs = availHs.filter((hs) => hs.hs.toLowerCase().includes(value.toLowerCase()));
-  //     if (filteredHs.length === 1) {
-  //       router.push(`/${filteredHs[0].hs}`);
-  //     }
-  //   }
-  // }
 
   return (
     <>
@@ -92,16 +43,6 @@ export default function Header() {
                 </Typography>
               </Button>
             </Box>
-            {/* <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Căutare liceu..."
-                inputProps={{ 'aria-label': 'search' }}
-                onChange={(e) => handleChange(e.target.value)}
-              />
-            </Search> */}
             <Autocomplete
               disableClearable
               options={availHs ? availHs.map(({ hs }) => hs) : []}

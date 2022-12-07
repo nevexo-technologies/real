@@ -1,6 +1,5 @@
 import Layout from "@components/Layout";
-import { Alert, Avatar, Box, Card, CardContent, Chip, CircularProgress, CircularProgressProps, Container, Fab, Grid, LinearProgress, linearProgressClasses, LinearProgressProps, styled, Typography, useMediaQuery } from "@mui/material";
-import { green, red } from "@mui/material/colors";
+import { Alert, Avatar, Box, Card, CardContent, Chip, CircularProgress, CircularProgressProps, Container, Grid, Typography, useMediaQuery } from "@mui/material";
 import { HsProcessed } from "helpers/getHsMetrics";
 import { useRouter } from "next/router";
 import useSWR from "swr";
@@ -43,31 +42,33 @@ export default function HighschoolPage() {
     const { highschool } = useRouter().query;
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
-    const { data, error } = useSWR<{ highschool: string, records: number } & HsProcessed>(`/api/hs/${highschool}`);
+    const { data, error } = useSWR<{ highschool: string, records: number } & HsProcessed>(highschool ? `/api/hs/${highschool}` : null);
 
     const facilitiesArray = ["Bănci", "Scaune", "Catedră", "Spații de depozitare", "Tablă", "Aer condiționat", "Calculatoare",
         "Laboratoare", "Automat cu mâncare", "Cretă/Markere", "Săpun", "Hârtie igienică", "Dezinfectant", "Burete pentru tablă",
         "Consumabile pentru laboratoare (de exemplu, reactivi pentru laboratorul de chimie etc.)"]
 
-    if (!data && !error) return (
-        <Layout>
-            <Head>
-                <title>Rezultate {highschool} | Registrul Educațional Alternativ</title>
-            </Head>
-            <Box sx={{ backgroundImage: (prefersDarkMode ? "url(/background-dark.png)" : "url(/background-light.png)") }}>
-                <Container sx={{ py: 10 }} maxWidth="lg">
+    if (!data && !error) {
+        return (
+            <Layout>
+                <Head>
+                    <title>Rezultate {highschool} | Registrul Educațional Alternativ</title>
+                </Head>
+                <Container sx={{ py: 10, display:"flex", justifyContent: "center" }} maxWidth="lg">
                     <CircularProgress />
                 </Container>
-            </Box>
-        </Layout>
-    )
+            </Layout>
+        )
+    }
 
     if (error) return (
         <Layout>
             <Head>
                 <title>Rezultate {highschool} | Registrul Educațional Alternativ</title>
             </Head>
-            <Alert severity="error">Eroare la încărcarea datelor - vă rugăm reîncercați</Alert>
+            <Container>
+                <Alert severity="error" sx={{ my: 4 }}>Eroare la încărcarea datelor - vă rugăm reîncercați</Alert>
+            </Container>
         </Layout>
     )
 
@@ -120,7 +121,7 @@ export default function HighschoolPage() {
                         <Card variant="outlined">
                             <CardContent>
                                 <Typography variant="h6" sx={{ fontWeight: 500, marginBottom: 2 }}>Facilități</Typography>
-                                <Grid container spacing={2} sx={{ textOverflow: "ellipsis", overflow: "auto"}}>
+                                <Grid container spacing={2} sx={{ textOverflow: "ellipsis", overflow: "auto" }}>
                                     {facilitiesArray.map((facility, index) => {
                                         if (data?.facilities.includes(facility)) {
                                             return (
@@ -129,6 +130,7 @@ export default function HighschoolPage() {
                                                         key={index}
                                                         label={facility}
                                                         color="success"
+                                                        variant="outlined"
                                                         icon={<CheckIcon />}
                                                     />
                                                 </Grid>
@@ -140,6 +142,7 @@ export default function HighschoolPage() {
                                                     <Chip
                                                         key={index}
                                                         label={facility}
+                                                        variant="outlined"
                                                         color="error"
                                                         icon={<CloseIcon />}
                                                     />
