@@ -119,7 +119,7 @@ function cleanFormData<T extends {}>(formData: T[], acceptedKeys: string[]): { s
         return;
     })
     ]).flat()
-    const dataCleaned = dataFlattened.filter((val) => val != undefined && val != -1);
+    const dataCleaned = dataFlattened.filter((val) => val != undefined && val >= 0);
 
     const dataSum = dataCleaned.reduce((acc, val) => (acc as number) + (val as number), 0);
 
