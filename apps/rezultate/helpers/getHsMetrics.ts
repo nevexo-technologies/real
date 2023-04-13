@@ -100,32 +100,29 @@ function cleanFormData<T extends {}>(formData: T[], acceptedKeys: string[]): { s
         }
     }
 
-    const dataFlattened = formData.map((val, idx) => [...Object.keys(val).map((key) => {
-        if (acceptedKeys.includes(key)) {
-            const multipleChoice = String(val[key as keyof T]).split(",");
-            if (multipleChoice?.length > 1) {
-                const allChoices = multipleChoice.map((val) => parseInt(val));
+    const dataFlattened = formData.map((val, idx) => [...Object.keys(val).filter(key=>acceptedKeys.includes(key)).map((key) => {
+        const multipleChoice = String(val[key as keyof T]).split(",");
+        if (multipleChoice?.length > 1) {
+            const allChoices = multipleChoice.map((val) => parseInt(val));
 
-                if (allChoices.includes(0)) {
-                    return 1;
-                }
-
-                return 0;
+            if (allChoices.includes(0)) {
+                return 1;
             }
 
-            const fieldValue = Number(val[key as keyof T]) / 5
-            return fieldValue > 1 ? 1 : fieldValue;
+            return 0;
         }
-        return;
-    })
-    ]).flat()
-    const dataCleaned = dataFlattened.filter((val) => val != undefined && val >= 0);
 
-    const dataSum = dataCleaned.reduce((acc, val) => (acc as number) + (val as number), 0);
+        const fieldValue = Number(val[key as keyof T]) / 5
+        return fieldValue > 1 ? 1 : fieldValue;
+    })
+    ]).flat();
+
+    const dataCleaned = dataFlattened.filter((val) => val != undefined && val >= 0);
+    const dataSum = dataCleaned.reduce((acc, val) => acc + val, 0);
 
     return {
-        sum: dataSum as number,
-        length: dataCleaned.length
+        sum: dataSum,
+        length: dataCleaned.length > 0 ? dataCleaned.length : 1
     }
 }
 
