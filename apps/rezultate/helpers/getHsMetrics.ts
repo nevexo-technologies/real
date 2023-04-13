@@ -81,9 +81,9 @@ export default function getHsMetrics({ elevi, parinti, profesori }: { elevi: Ele
     });
 
     const officePoint = 1;
-    const facilitiesPoints = (facilitiesFitered.e19.length + facilitiesFitered.e21.length)*0.5;
+    const facilitiesPoints = (facilitiesFitered.e19.length + facilitiesFitered.e21.length)*0.1;
     const subjectivePoints = Object.values(metrics).reduce((acc, val) => acc + val, 0) / Object.keys(metrics).length;
-    const realScore = officePoint*0.10 + facilitiesPoints*0.15 + subjectivePoints;
+    const realScore = officePoint + facilitiesPoints + subjectivePoints;
 
     return {
         scores: {
