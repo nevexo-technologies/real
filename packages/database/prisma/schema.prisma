@@ -130,3 +130,9 @@ model Profesor {
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 }
+
+model MedieAdmitere{
+  id               Int      @id @default(autoincrement())
+  hs               String   @db.VarChar(255)
+  medie            Decimal  @db.Decimal(10,2)
+}

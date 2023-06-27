@@ -1,4 +1,5 @@
-import { Elev, Profesor, Parinte } from '@real/database';
+import { prisma } from '@real/database';
+import { Elev, Profesor, Parinte, MedieAdmitere } from '@real/database';
 
 const INDEXES = {
     opportunities: {
@@ -48,7 +49,7 @@ export interface HsProcessed {
     facilities: string[];
 }
 
-export default function getHsMetrics({ elevi, parinti, profesori }: { elevi: Elev[], parinti: Parinte[], profesori: Profesor[] }) : HsProcessed {
+export default function getHsMetrics({ elevi, parinti, profesori, medieAdmitere}: { elevi: Elev[], parinti: Parinte[], profesori: Profesor[], medieAdmitere?: number}): HsProcessed {
     const facilitiesUnfiltered = elevi.reduce<{ e19: string[], e21: string[] }>((acc, { e19, e21 }) => {
         return {
             e19: [...acc.e19, ...e19.split(",")],
@@ -81,9 +82,13 @@ export default function getHsMetrics({ elevi, parinti, profesori }: { elevi: Ele
     });
 
     const officePoint = 1;
-    const facilitiesPoints = (facilitiesFitered.e19.length + facilitiesFitered.e21.length)*0.1;
+    const facilitiesPoints = (facilitiesFitered.e19.length + facilitiesFitered.e21.length) * 0.1;
     const subjectivePoints = Object.values(metrics).reduce((acc, val) => acc + val, 0) / Object.keys(metrics).length;
-    const realScore = officePoint + facilitiesPoints + subjectivePoints;
+
+    let realScore = officePoint + facilitiesPoints + subjectivePoints;
+    if(medieAdmitere) {
+        realScore = realScore*0.7+medieAdmitere*0.3;
+    }
 
     return {
         scores: {
@@ -103,7 +108,7 @@ function cleanFormData<T extends {}>(formData: T[], acceptedKeys: string[]): { s
         }
     }
 
-    const dataFlattened = formData.map((val, idx) => [...Object.keys(val).filter(key=>acceptedKeys.includes(key)).map((key) => {
+    const dataFlattened = formData.map((val, idx) => [...Object.keys(val).filter(key => acceptedKeys.includes(key)).map((key) => {
         const multipleChoice = String(val[key as keyof T]).split(",");
         if (multipleChoice?.length > 1) {
             const allChoices = multipleChoice.map((val) => parseInt(val));
