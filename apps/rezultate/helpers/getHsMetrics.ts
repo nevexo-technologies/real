@@ -1,5 +1,5 @@
 import { prisma } from '@real/database';
-import { Elev, Profesor, Parinte, MedieAdmitere } from '@real/database';
+import { Elev, Profesor, Parinte } from '@real/database';
 
 const INDEXES = {
     opportunities: {
