@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Elev, Parinte, prisma, Profesor } from '@real/database';
+import { Elev, MedieAdmitere, Parinte, prisma, Profesor} from '@real/database';
 import rateLimit from 'helpers/rateLimit';
 import getHsMetrics, { HsProcessed } from 'helpers/getHsMetrics';
 import groupHs from 'helpers/groupHs';
@@ -46,7 +46,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             })
         });
 
-        const results = [studentResults, teachersResults, parentResults].flat().map(({ hs }) => hs);
+        const admissionGrades = await prisma.medieAdmitere.findMany({
+            ...(!realFilter && {
+                select: {
+                    hs: true,
+                }
+            })
+        });
+
+        const results = [studentResults, teachersResults, parentResults, admissionGrades].flat().map(({ hs }) => hs);
         const frequencyResults = results.reduce<{ [key: string]: number }>((acc, hs) => {
             acc[hs] = (acc[hs] ?? 0) + 1;
             return acc;
@@ -56,10 +64,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const groupedStudents = groupHs(studentResults);
             const groupedTeachers = groupHs(teachersResults);
             const groupedParents = groupHs(parentResults);
+            const groupedAdmissionGrades = groupHs(admissionGrades);
 
             const groupedResults = Object.keys(frequencyResults).reduce<{ hs: string, real: number, records: number }[]>((acc, hs) => {
                 if (groupedStudents[hs]) {
-                    const hsScores = getHsMetrics({ elevi: groupedStudents[hs] as Elev[], profesori: groupedTeachers[hs] as Profesor[], parinti: groupedParents[hs] as Parinte[] })
+                    const hsScores = getHsMetrics({ elevi: groupedStudents[hs] as Elev[], profesori: groupedTeachers[hs] as Profesor[], parinti: groupedParents[hs] as Parinte[], medieAdmitere: (groupedAdmissionGrades[hs] as MedieAdmitere[])?.[0]?.medie.toNumber() })
                     const hsRecords = (groupedStudents[hs]?.length || 0) + (groupedTeachers[hs]?.length || 0) + (groupedParents[hs]?.length || 0);
 
                     acc.push({ hs: hs, real: hsScores.scores.real, records: hsRecords });

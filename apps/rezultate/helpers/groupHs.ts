@@ -1,6 +1,6 @@
-import { Elev, Parinte, Profesor } from "@real/database";
+import { Elev, Parinte, Profesor, MedieAdmitere } from "@real/database";
 
-export default function groupHs(data: (Elev | Parinte | Profesor)[]) {
+export default function groupHs(data: (Elev | Parinte | Profesor | MedieAdmitere)[]) {
     return data.reduce<{ [key: string]: typeof data }>((acc, curr) => {
         if (acc[curr.hs]) acc[curr.hs].push(curr);
         else acc[curr.hs] = [curr];
