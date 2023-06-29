@@ -69,7 +69,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const groupedResults = Object.keys(frequencyResults).reduce<{ hs: string, real: number, records: number }[]>((acc, hs) => {
                 if (groupedStudents[hs]) {
                     const hsScores = getHsMetrics({ elevi: groupedStudents[hs] as Elev[], profesori: groupedTeachers[hs] as Profesor[], parinti: groupedParents[hs] as Parinte[], medieAdmitere: (groupedAdmissionGrades[hs] as MedieAdmitere[])?.[0]?.medie.toNumber() })
-                    console.log(hsScores);
                     const hsRecords = (groupedStudents[hs]?.length || 0) + (groupedTeachers[hs]?.length || 0) + (groupedParents[hs]?.length || 0);
 
                     acc.push({ hs: hs, real: hsScores.scores.real, records: hsRecords });

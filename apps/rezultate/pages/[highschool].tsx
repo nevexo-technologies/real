@@ -71,7 +71,6 @@ export default function HighschoolPage() {
         </Layout>
     )
 
-    console.log(data);
     return (
         <Layout>
             <Head>
