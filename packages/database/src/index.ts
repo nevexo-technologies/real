@@ -1,2 +1,2 @@
 export * from "./client";
-export type { Elev, Profesor, Parinte } from "@prisma/client";
+export type { Elev, Profesor, Parinte, MedieAdmitere } from "@prisma/client";
